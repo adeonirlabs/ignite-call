@@ -4,8 +4,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import type { ReactNode } from 'react'
 
-import { cn } from '~/utils/classnames'
-
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -15,8 +13,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body className={cn(inter.className, 'bg-zinc-900 text-zinc-100')}>{children}</body>
+    <html className="bg-zinc-900 text-zinc-100 antialiased" lang="en">
+      <body className={inter.className}>{children}</body>
     </html>
   )
 }
