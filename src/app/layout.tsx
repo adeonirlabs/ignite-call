@@ -1,6 +1,5 @@
 import './globals.css'
 
-import { ThemeModeScript } from 'flowbite-react'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import type { ReactNode } from 'react'
@@ -17,9 +16,6 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <ThemeModeScript />
-      </head>
       <body className={cn(inter.className, 'bg-zinc-900 text-zinc-100')}>{children}</body>
     </html>
   )

@@ -1,16 +1,11 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  content: [
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
-    'node_modules/flowbite-react/lib/esm/**/*.js',
-  ],
+  content: ['./src/**/*.tsx'],
   theme: {
     extend: {},
   },
-  plugins: [
-    require('flowbite/plugin'),
-  ],
+  plugins: [],
 }
 
 export default config
