@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { ThemeModeScript } from 'flowbite-react'
 
 import './globals.css'
+import { cn } from "~/utils/classnames"
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,7 @@ export default function RootLayout({
       <head>
         <ThemeModeScript />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={cn(inter.className, 'bg-zinc-900 text-zinc-100')}>{children}</body>
     </html>
   )
 }
