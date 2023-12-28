@@ -2,6 +2,8 @@ import Image from 'next/image'
 
 import preview from '~/assets/images/preview.png'
 
+import { UsernameForm } from './username-form'
+
 export default function Page() {
   return (
     <main className="ml-auto flex h-screen max-w-[calc(100vw_-_(100vw_-_72rem)_/_2)] items-center gap-20">
@@ -10,6 +12,7 @@ export default function Page() {
         <p className="text-base md:text-xl">
           Conecte seu calendário e permita que as pessoas marquem agendamentos no seu tempo livre.
         </p>
+        <UsernameForm className="mt-4" />
       </section>
       <section className="hidden overflow-hidden md:flex">
         <Image
