@@ -1,6 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { cookies } from 'next/headers'
 
 import { prisma } from '~/libs/prisma'
 import { type CreateUser, createUserSchema } from '~/schemas/create-user'
@@ -19,6 +20,7 @@ export async function createUser(data: CreateUser) {
   }
 
   const user = await prisma.user.create({ data })
+  cookies().set('@call:userId', user.id, { path: '/', maxAge: 60 * 60 * 24 * 30 }) // 30 days
   revalidatePath('/users')
 
   return { user }
