@@ -1,8 +1,7 @@
 import Image from 'next/image'
 
 import preview from '~/assets/images/preview.png'
-
-import { UsernameForm } from './username-form'
+import { ClaimUsernameForm } from '~/components/forms/claim-username'
 
 export default function Page() {
   return (
@@ -12,7 +11,7 @@ export default function Page() {
         <p className="text-base md:text-xl">
           Conecte seu calendário e permita que as pessoas marquem agendamentos no seu tempo livre.
         </p>
-        <UsernameForm className="mt-4" />
+        <ClaimUsernameForm className="mt-4" />
       </section>
       <section className="hidden overflow-hidden md:flex">
         <Image
