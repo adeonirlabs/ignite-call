@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import type { ComponentProps } from 'react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -13,6 +14,8 @@ import { cn } from '~/utils/classnames'
 interface ClaimUsernameFormProps extends ComponentProps<'form'> {}
 
 export function ClaimUsernameForm({ className, ...props }: ClaimUsernameFormProps) {
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -25,8 +28,14 @@ export function ClaimUsernameForm({ className, ...props }: ClaimUsernameFormProp
 
   const username = watch('username')
 
-  const onSubmit = (data: ClaimUsername) => {
-    console.info(data)
+  const onSubmit = async (data: ClaimUsername) => {
+    const { username } = data
+
+    return new Promise(resolve => {
+      setTimeout(() => resolve(null), 500)
+    }).then(() => {
+      router.push(`/register?username=${username}`)
+    })
   }
 
   useEffect(() => {
@@ -56,7 +65,7 @@ export function ClaimUsernameForm({ className, ...props }: ClaimUsernameFormProp
           <span className="label label-text-alt pb-0 text-red-400">{errors.username?.message}</span>
         ) : null}
       </div>
-      <button className="btn-accent btn" disabled={isSubmitting} type="submit">
+      <button className="btn-accent btn w-32" disabled={isSubmitting} type="submit">
         {isSubmitting ? (
           <span className="loading loading-spinner"></span>
         ) : (
