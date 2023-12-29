@@ -56,9 +56,9 @@ export function ClaimUsernameForm({ className, ...props }: ClaimUsernameFormProp
           <span className="label label-text-alt pb-0 text-red-400">{errors.username?.message}</span>
         ) : null}
       </div>
-      <button className="btn-accent btn no-animation" disabled={isSubmitting} type="submit">
+      <button className="btn-accent btn" disabled={isSubmitting} type="submit">
         {isSubmitting ? (
-          <span className="loading loading-spinner text-accent"></span>
+          <span className="loading loading-spinner"></span>
         ) : (
           <>
             Reservar
