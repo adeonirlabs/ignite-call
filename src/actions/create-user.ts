@@ -3,10 +3,16 @@
 import { revalidatePath } from 'next/cache'
 
 import { prisma } from '~/libs/prisma'
-import type { CreateUser } from '~/schemas/create-user'
+import { type CreateUser, createUserSchema } from '~/schemas/create-user'
 
 export async function createUser(data: CreateUser) {
-  const userExists = await prisma.user.findUnique({ where: { username: data.username } })
+  const parsed = createUserSchema.safeParse(data)
+
+  if (!parsed.success) {
+    throw new Error(parsed.error.message)
+  }
+
+  const userExists = await prisma.user.findUnique({ where: { username: parsed.data.username } })
 
   if (userExists) {
     throw new Error('This user already exists.')
