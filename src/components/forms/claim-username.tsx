@@ -38,7 +38,7 @@ export function ClaimUsernameForm({ className, ...props }: ClaimUsernameFormProp
   return (
     <form
       className={cn(
-        'relative flex max-w-lg flex-col gap-2 p-4 md:flex-row',
+        'flex max-w-lg flex-col gap-2 p-4 md:flex-row',
         'rounded-lg border border-zinc-200/10 bg-zinc-600/20',
         className,
       )}
@@ -47,19 +47,17 @@ export function ClaimUsernameForm({ className, ...props }: ClaimUsernameFormProp
     >
       <div className="flex w-full flex-col gap-2">
         <input
-          className="input-bordered input-accent input w-full"
+          className={cn('input-bordered input-accent input w-full', errors.username ? 'input-error' : 'input-accent')}
           placeholder="Nome de usuário"
           type="text"
           {...register('username')}
         />
+        {errors.username ? <span className="text-xs text-red-400">{errors.username?.message}</span> : null}
       </div>
       <button className="btn-accent btn" type="submit">
         Reservar
         <ArrowRight />
       </button>
-      {errors.username ? (
-        <span className="absolute -bottom-6 -left-0 text-xs text-red-400">{errors.username?.message}</span>
-      ) : null}
     </form>
   )
 }
