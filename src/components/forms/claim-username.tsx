@@ -2,7 +2,8 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
-import { type ComponentProps, useEffect } from 'react'
+import type { ComponentProps } from 'react'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import type { ClaimUsername } from '~/entities/claim-username'
