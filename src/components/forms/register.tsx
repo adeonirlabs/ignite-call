@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import { type ComponentProps } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import type { Register } from '~/schemas/register'
+import type { CreateUser } from '~/schemas/create-user'
 import { cn } from '~/utils/classnames'
 
 interface RegisterFormProps extends ComponentProps<'form'> {}
@@ -14,9 +14,9 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useFormContext<Register>()
+  } = useFormContext<CreateUser>()
 
-  const onSubmit = (data: Register) => {
+  const onSubmit = async (data: CreateUser) => {
     console.info({ data, isSubmitting })
   }
 

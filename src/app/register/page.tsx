@@ -7,14 +7,14 @@ import { FormProvider, useForm } from 'react-hook-form'
 
 import { RegisterForm } from '~/components/forms/register'
 import { Steps } from '~/components/ui/steps'
-import type { Register } from '~/schemas/register'
-import { registerSchema } from '~/schemas/register'
+import type { CreateUser } from '~/schemas/create-user'
+import { createUserSchema } from '~/schemas/create-user'
 
 export default function Register() {
   const params = useSearchParams()
 
-  const form = useForm<Register>({
-    resolver: zodResolver(registerSchema),
+  const form = useForm<CreateUser>({
+    resolver: zodResolver(createUserSchema),
   })
 
   useEffect(() => {
