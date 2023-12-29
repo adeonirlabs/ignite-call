@@ -10,7 +10,7 @@ const createUser = {
     .string()
     .min(3, 'O nome completo deve ter pelo menos 3 caracteres.')
     .regex(
-      /^[a-zA-Z]{3,}\s[a-zA-Z]{3,}$/,
+      /^[a-zA-Z]{2,}\s[a-zA-Z]{2,}$/,
       'O nome completo deve conter pelo menos duas palavras com no mínimo 3 caracteres cada.',
     ),
 }
