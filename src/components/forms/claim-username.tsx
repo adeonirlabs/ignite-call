@@ -55,12 +55,20 @@ export function ClaimUsernameForm({ className, ...props }: ClaimUsernameFormProp
       {...props}
     >
       <div className="form-control w-full">
-        <input
-          className={cn('input-bordered input-accent input w-full', errors.username ? 'input-error' : 'input-accent')}
-          placeholder="Nome de usuário"
-          type="text"
-          {...register('username')}
-        />
+        <div
+          className={cn(
+            'input-bordered input flex w-full items-center gap-2',
+            errors.username ? 'input-error' : 'input-accent',
+          )}
+        >
+          <span className="text-zinc-500">call.me/</span>
+          <input
+            className="h-full w-full appearance-none bg-transparent"
+            placeholder="Nome de usuário"
+            type="text"
+            {...register('username')}
+          />
+        </div>
         {errors.username ? (
           <span className="label label-text-alt pb-0 text-red-400">{errors.username?.message}</span>
         ) : null}

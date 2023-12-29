@@ -27,14 +27,23 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
       {...props}
     >
       <label className="form-control w-full">
-        <span className="label label-text">Nome de usuário</span>
-        <input
-          className={cn('input-bordered input w-full', errors.username ? 'input-error' : 'input-accent')}
-          placeholder="Seu usuário"
-          type="text"
-          {...register('username')}
-        />
-        {errors.username ? <span className="label-error label">{errors.username?.message}</span> : null}
+        <div
+          className={cn(
+            'input-bordered input flex w-full items-center gap-2',
+            errors.username ? 'input-error' : 'input-accent',
+          )}
+        >
+          <span className="text-zinc-500">call.me/</span>
+          <input
+            className="h-full w-full appearance-none bg-transparent"
+            placeholder="Nome de usuário"
+            type="text"
+            {...register('username')}
+          />
+        </div>
+        {errors.username ? (
+          <span className="label label-text-alt pb-0 text-red-400">{errors.username?.message}</span>
+        ) : null}
       </label>
       <label className="form-control w-full">
         <span className="label label-text">Nome completo</span>

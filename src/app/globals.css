@@ -15,11 +15,11 @@
 }
 
 .input-accent {
-  @apply focus:outline-accent/20;
+  @apply focus-within:outline-accent/20 focus:outline-accent/20;
 }
 
 .input-error {
-  @apply focus:outline-error/20;
+  @apply focus-within:outline-error/20 focus:outline-error/20;
 }
 
 .label-text {
