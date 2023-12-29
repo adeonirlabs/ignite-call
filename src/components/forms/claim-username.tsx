@@ -18,7 +18,7 @@ export function ClaimUsernameForm({ className, ...props }: ClaimUsernameFormProp
     handleSubmit,
     setValue,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ClaimUsername>({
     resolver: zodResolver(claimUsernameSchema),
   })
@@ -45,18 +45,26 @@ export function ClaimUsernameForm({ className, ...props }: ClaimUsernameFormProp
       onSubmit={handleSubmit(onSubmit)}
       {...props}
     >
-      <div className="flex w-full flex-col gap-2">
+      <div className="form-control w-full">
         <input
           className={cn('input-bordered input-accent input w-full', errors.username ? 'input-error' : 'input-accent')}
           placeholder="Nome de usuário"
           type="text"
           {...register('username')}
         />
-        {errors.username ? <span className="text-xs text-red-400">{errors.username?.message}</span> : null}
+        {errors.username ? (
+          <span className="label label-text-alt pb-0 text-red-400">{errors.username?.message}</span>
+        ) : null}
       </div>
-      <button className="btn-accent btn" type="submit">
-        Reservar
-        <ArrowRight />
+      <button className="btn-accent btn no-animation" disabled={isSubmitting} type="submit">
+        {isSubmitting ? (
+          <span className="loading loading-spinner text-accent"></span>
+        ) : (
+          <>
+            Reservar
+            <ArrowRight />
+          </>
+        )}
       </button>
     </form>
   )
