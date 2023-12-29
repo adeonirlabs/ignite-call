@@ -1,7 +1,28 @@
+'use client'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useSearchParams } from 'next/navigation'
+import { useEffect } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+
 import { RegisterForm } from '~/components/forms/register'
 import { Steps } from '~/components/ui/steps'
+import type { Register } from '~/schemas/register'
+import { registerSchema } from '~/schemas/register'
 
 export default function Register() {
+  const params = useSearchParams()
+
+  const form = useForm<Register>({
+    resolver: zodResolver(registerSchema),
+  })
+
+  useEffect(() => {
+    if (params.has('username')) {
+      form.setValue('username', params.get('username') ?? '')
+    }
+  }, [form, params])
+
   return (
     <main className="mx-auto mb-4 mt-20 max-w-xl px-4">
       <header className="flex flex-col gap-6 pb-6">
@@ -13,7 +34,9 @@ export default function Register() {
         </div>
         <Steps current={1} size={4} />
       </header>
-      <RegisterForm />
+      <FormProvider {...form}>
+        <RegisterForm />
+      </FormProvider>
     </main>
   )
 }
