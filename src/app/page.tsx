@@ -3,7 +3,7 @@ import Image from 'next/image'
 import preview from '~/assets/images/preview.png'
 import { ClaimUsernameForm } from '~/components/forms/claim-username'
 
-export default function Page() {
+export default function Home() {
   return (
     <main className="ml-auto flex h-screen max-w-[calc(100vw_-_(100vw_-_72rem)_/_2)] items-center gap-20">
       <section className="flex flex-col gap-4 p-10">
