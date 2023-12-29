@@ -6,8 +6,8 @@ import type { ComponentProps } from 'react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import type { ClaimUsername } from '~/entities/claim-username'
-import { claimUsernameSchema } from '~/entities/claim-username'
+import type { ClaimUsername } from '~/schemas/claim-username'
+import { claimUsernameSchema } from '~/schemas/claim-username'
 import { cn } from '~/utils/classnames'
 
 interface ClaimUsernameFormProps extends ComponentProps<'form'> {}
