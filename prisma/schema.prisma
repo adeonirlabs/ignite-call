@@ -6,3 +6,12 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  fullName  String   @map("full_name")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("users")
+}
