@@ -9,7 +9,10 @@ const register = {
   fullName: z
     .string()
     .min(3, 'O nome completo deve ter pelo menos 3 caracteres.')
-    .regex(/\s/, 'O nome completo deve conter pelo menos um espaço em branco.'),
+    .regex(
+      /^[a-zA-Z]{3,}\s[a-zA-Z]{3,}$/,
+      'O nome completo deve conter pelo menos duas palavras com no mínimo 3 caracteres cada.',
+    ),
 }
 
 export const registerSchema = z.object(register)
