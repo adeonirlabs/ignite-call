@@ -1,12 +1,10 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
-import type { ComponentProps } from 'react'
-import { useForm } from 'react-hook-form'
+import { type ComponentProps } from 'react'
+import { useFormContext } from 'react-hook-form'
 
 import type { Register } from '~/schemas/register'
-import { registerSchema } from '~/schemas/register'
 import { cn } from '~/utils/classnames'
 
 interface RegisterFormProps extends ComponentProps<'form'> {}
@@ -16,12 +14,10 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<Register>({
-    resolver: zodResolver(registerSchema),
-  })
+  } = useFormContext<Register>()
 
   const onSubmit = (data: Register) => {
-    console.info(data)
+    console.info({ data, isSubmitting })
   }
 
   return (
@@ -48,7 +44,7 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
           type="text"
           {...register('fullName')}
         />
-        {errors.username ? <span className="label-error label">{errors.fullName?.message}</span> : null}
+        {errors.fullName ? <span className="label-error label">{errors.fullName?.message}</span> : null}
       </label>
       <button className="btn-accent btn mt-2" disabled={isSubmitting} type="submit">
         {isSubmitting ? (
