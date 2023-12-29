@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import { type ComponentProps } from 'react'
 import { useFormContext } from 'react-hook-form'
 
+import { createUser } from '~/actions/create-user'
 import type { CreateUser } from '~/schemas/create-user'
 import { cn } from '~/utils/classnames'
 
@@ -17,7 +18,15 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
   } = useFormContext<CreateUser>()
 
   const onSubmit = async (data: CreateUser) => {
-    console.info({ data, isSubmitting })
+    const { username, fullName } = data
+
+    try {
+      await createUser({ username, fullName })
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message)
+      }
+    }
   }
 
   return (
@@ -60,7 +69,7 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
           <span className="loading loading-spinner"></span>
         ) : (
           <>
-            Reservar
+            Próximo passo
             <ArrowRight />
           </>
         )}
