@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form'
 import type { ClaimUsername } from '~/schemas/claim-username'
 import { claimUsernameSchema } from '~/schemas/claim-username'
 import { cn } from '~/utils/classnames'
+import { sleep } from '~/utils/sleep'
 
 interface ClaimUsernameFormProps extends ComponentProps<'form'> {}
 
@@ -30,12 +31,8 @@ export function ClaimUsernameForm({ className, ...props }: ClaimUsernameFormProp
 
   const onSubmit = async (data: ClaimUsername) => {
     const { username } = data
-
-    return new Promise(resolve => {
-      setTimeout(() => resolve(null), 500)
-    }).then(() => {
-      router.push(`/register?username=${username}`)
-    })
+    await sleep(500)
+    router.push(`/register?username=${username}`)
   }
 
   useEffect(() => {
