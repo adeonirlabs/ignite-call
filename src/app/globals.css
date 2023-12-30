@@ -11,7 +11,7 @@
 }
 
 .input {
-  @apply focus:outline-4 focus:outline-offset-0;
+  @apply focus-within:outline-4 focus-within:outline-offset-0 focus:outline-4 focus:outline-offset-0;
 }
 
 .input-accent {
