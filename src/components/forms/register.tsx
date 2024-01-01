@@ -1,16 +1,17 @@
 'use client'
 
 import { ArrowRight } from 'lucide-react'
-import { type ComponentProps } from 'react'
+import { useRouter } from 'next/navigation'
 import { useFormContext } from 'react-hook-form'
 
 import { createUser } from '~/actions/create-user'
 import type { CreateUser } from '~/schemas/create-user'
 import { cn } from '~/utils/classnames'
+import { sleep } from '~/utils/sleep'
 
-interface RegisterFormProps extends ComponentProps<'form'> {}
+export function RegisterForm() {
+  const router = useRouter()
 
-export function RegisterForm({ className, ...props }: RegisterFormProps) {
   const {
     register,
     handleSubmit,
@@ -22,6 +23,8 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
 
     try {
       await createUser({ username, fullName })
+      await sleep(500)
+      router.push(`/register/connect`)
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message)
@@ -30,21 +33,18 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
   }
 
   return (
-    <form
-      className={cn('flex flex-col gap-4 rounded-lg border border-zinc-200/10 bg-zinc-600/20 p-4', className)}
-      onSubmit={handleSubmit(onSubmit)}
-      {...props}
-    >
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
       <label className="form-control w-full">
+        <span className="label label-text">Nome de usuário</span>
         <div
           className={cn(
             'input-bordered input flex w-full items-center gap-2',
             errors.username ? 'input-error' : 'input-accent',
           )}
         >
-          <span className="text-zinc-500">call.me/</span>
+          <span className="text-accent/40">call.me/</span>
           <input
-            className="h-full w-full appearance-none bg-transparent"
+            className="h-full w-full appearance-none bg-transparent placeholder:text-zinc-300/50"
             placeholder="Nome de usuário"
             type="text"
             {...register('username')}
@@ -57,7 +57,10 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
       <label className="form-control w-full">
         <span className="label label-text">Nome completo</span>
         <input
-          className={cn('input-bordered input w-full', errors.fullName ? 'input-error' : 'input-accent')}
+          className={cn(
+            'input-bordered input w-full placeholder:text-zinc-300/50',
+            errors.fullName ? 'input-error' : 'input-accent',
+          )}
           placeholder="Seu nome"
           type="text"
           {...register('fullName')}

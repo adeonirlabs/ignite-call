@@ -34,9 +34,11 @@ export default function Register() {
         </div>
         <Steps current={1} size={4} />
       </header>
-      <FormProvider {...form}>
-        <RegisterForm />
-      </FormProvider>
+      <section className="rounded-lg border border-zinc-200/10 bg-zinc-600/20 p-4">
+        <FormProvider {...form}>
+          <RegisterForm />
+        </FormProvider>
+      </section>
     </main>
   )
 }

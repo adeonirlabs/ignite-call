@@ -3,7 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import type { ComponentProps } from 'react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -12,9 +11,7 @@ import { claimUsernameSchema } from '~/schemas/claim-username'
 import { cn } from '~/utils/classnames'
 import { sleep } from '~/utils/sleep'
 
-interface ClaimUsernameFormProps extends ComponentProps<'form'> {}
-
-export function ClaimUsernameForm({ className, ...props }: ClaimUsernameFormProps) {
+export function ClaimUsernameForm() {
   const router = useRouter()
 
   const {
@@ -42,15 +39,7 @@ export function ClaimUsernameForm({ className, ...props }: ClaimUsernameFormProp
   }, [username, setValue])
 
   return (
-    <form
-      className={cn(
-        'flex max-w-lg flex-col gap-2 p-4 md:flex-row',
-        'rounded-lg border border-zinc-200/10 bg-zinc-600/20',
-        className,
-      )}
-      onSubmit={handleSubmit(onSubmit)}
-      {...props}
-    >
+    <form className="flex max-w-lg flex-col gap-2 p-4 md:flex-row" onSubmit={handleSubmit(onSubmit)}>
       <div className="form-control w-full">
         <div
           className={cn(
@@ -58,9 +47,9 @@ export function ClaimUsernameForm({ className, ...props }: ClaimUsernameFormProp
             errors.username ? 'input-error' : 'input-accent',
           )}
         >
-          <span className="text-zinc-500">call.me/</span>
+          <span className="text-accent/40">call.me/</span>
           <input
-            className="h-full w-full appearance-none bg-transparent"
+            className="h-full w-full appearance-none bg-transparent placeholder:text-zinc-300/50"
             placeholder="Nome de usuário"
             type="text"
             {...register('username')}
