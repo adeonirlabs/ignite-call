@@ -9,8 +9,22 @@ const authOptions: NextAuthOptions = {
     Google({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          scope:
+            'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar',
+        },
+      },
     }),
   ],
+  callbacks: {
+    signIn: async ({ account }) => {
+      if (!account?.scope?.includes('https://www.googleapis.com/auth/calendar')) {
+        return '/register/connect?error=permissions'
+      }
+      return true
+    },
+  },
 }
 
 const handler = NextAuth(authOptions)
