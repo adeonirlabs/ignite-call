@@ -1,7 +1,6 @@
-'use client'
-
 import { ArrowRight } from 'lucide-react'
 
+import { ConnectToGoogle } from '~/components/buttons/connect-to-google'
 import { Steps } from '~/components/ui/steps'
 
 export default function ConnectAgenda() {
@@ -20,10 +19,7 @@ export default function ConnectAgenda() {
       <section className="flex flex-col gap-4 rounded-lg border border-zinc-200/10 bg-zinc-600/20 p-4">
         <div className="flex items-center justify-between rounded-lg border border-zinc-200/10 p-4">
           <strong>Google Agenda</strong>
-          <button className="btn-accent btn-outline btn btn-sm" type="submit">
-            Conectar
-            <ArrowRight />
-          </button>
+          <ConnectToGoogle />
         </div>
         <button className="btn-accent btn" disabled type="submit">
           Próximo passo
