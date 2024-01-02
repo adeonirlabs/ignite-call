@@ -28,7 +28,7 @@ export default function Connect() {
       </header>
       <section className="flex flex-col gap-4 rounded-lg border border-zinc-200/10 bg-zinc-600/20 p-4">
         <ConnectToGoogleForm />
-        <button className="btn-accent btn" disabled={!isSignedIn || hasAuthError} type="submit">
+        <button className="btn btn-accent" disabled={!isSignedIn || hasAuthError} type="submit">
           Próximo passo
           <ArrowRight />
         </button>

@@ -24,12 +24,12 @@ export function ConnectToGoogleForm() {
       <div className="flex items-center justify-between rounded-lg border border-zinc-200/10 p-4">
         <strong>Google Agenda</strong>
         {hasAuthError ? (
-          <button className="btn-accent btn-outline btn btn-sm" onClick={handleConnect} type="submit">
+          <button className="btn btn-outline btn-accent btn-sm" onClick={handleConnect} type="submit">
             Tentar novamente
           </button>
         ) : (
           <button
-            className="btn-accent btn-outline btn btn-sm"
+            className="btn btn-outline btn-accent btn-sm"
             disabled={isSignedIn}
             onClick={isSignedIn ? undefined : handleConnect}
             type="submit"

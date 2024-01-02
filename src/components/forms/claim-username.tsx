@@ -43,7 +43,7 @@ export function ClaimUsernameForm() {
       <div className="form-control w-full">
         <div
           className={cn(
-            'input-bordered input flex w-full items-center gap-2',
+            'input input-bordered flex w-full items-center gap-2',
             errors.username ? 'input-error' : 'input-accent',
           )}
         >
@@ -59,7 +59,7 @@ export function ClaimUsernameForm() {
           <span className="label label-text-alt pb-0 text-red-400">{errors.username?.message}</span>
         ) : null}
       </div>
-      <button className="btn-accent btn w-32" disabled={isSubmitting} type="submit">
+      <button className="btn btn-accent w-32" disabled={isSubmitting} type="submit">
         {isSubmitting ? (
           <span className="loading loading-spinner"></span>
         ) : (

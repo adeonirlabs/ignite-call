@@ -38,7 +38,7 @@ export function RegisterForm() {
         <span className="label label-text">Nome de usuário</span>
         <div
           className={cn(
-            'input-bordered input flex w-full items-center gap-2',
+            'input input-bordered flex w-full items-center gap-2',
             errors.username ? 'input-error' : 'input-accent',
           )}
         >
@@ -58,7 +58,7 @@ export function RegisterForm() {
         <span className="label label-text">Nome completo</span>
         <input
           className={cn(
-            'input-bordered input w-full placeholder:text-zinc-300/50',
+            'input input-bordered w-full placeholder:text-zinc-300/50',
             errors.fullName ? 'input-error' : 'input-accent',
           )}
           placeholder="Seu nome"
@@ -67,7 +67,7 @@ export function RegisterForm() {
         />
         {errors.fullName ? <span className="label-error label">{errors.fullName?.message}</span> : null}
       </label>
-      <button className="btn-accent btn mt-2" disabled={isSubmitting} type="submit">
+      <button className="btn btn-accent mt-2" disabled={isSubmitting} type="submit">
         {isSubmitting ? (
           <span className="loading loading-spinner"></span>
         ) : (
