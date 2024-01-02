@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 
-import { prisma } from '~/libs/prisma'
+import { prisma } from '~/lib/prisma'
 import { type CreateUser, createUserSchema } from '~/schemas/create-user'
 
 export async function createUser(data: CreateUser) {
