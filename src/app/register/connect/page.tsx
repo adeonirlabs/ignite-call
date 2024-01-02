@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react'
 import { ConnectToGoogle } from '~/components/buttons/connect-to-google'
 import { Steps } from '~/components/ui/steps'
 
-export default function ConnectAgenda() {
+export default function Connect() {
   return (
     <main className="mx-auto mb-4 mt-20 max-w-xl px-4">
       <header className="flex flex-col gap-6 pb-6">
