@@ -19,10 +19,10 @@ export function RegisterForm() {
   } = useFormContext<CreateUser>()
 
   const onSubmit = async (data: CreateUser) => {
-    const { username, fullName } = data
+    const { username, name } = data
 
     try {
-      await createUser({ username, fullName })
+      await createUser({ username, name })
       await sleep(500)
       router.push(`/register/connect`)
     } catch (error) {
@@ -59,13 +59,13 @@ export function RegisterForm() {
         <input
           className={cn(
             'input input-bordered w-full placeholder:text-zinc-300/50',
-            errors.fullName ? 'input-error' : 'input-accent',
+            errors.name ? 'input-error' : 'input-accent',
           )}
           placeholder="Seu nome"
           type="text"
-          {...register('fullName')}
+          {...register('name')}
         />
-        {errors.fullName ? <span className="label-error label">{errors.fullName?.message}</span> : null}
+        {errors.name ? <span className="label-error label">{errors.name?.message}</span> : null}
       </label>
       <button className="btn btn-accent mt-2" disabled={isSubmitting} type="submit">
         {isSubmitting ? (

@@ -6,7 +6,7 @@ const createUser = {
     .min(3, 'O nome de usuário deve ter pelo menos 3 caracteres.')
     .regex(/^[a-z\\-]*[a-z]$/i, 'O nome de usuário deve conter apenas letras e hifens e terminar com uma letra.')
     .transform(value => value.toLowerCase()),
-  fullName: z
+  name: z
     .string()
     .min(3, 'O nome completo deve ter pelo menos 3 caracteres.')
     .regex(
