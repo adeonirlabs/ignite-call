@@ -20,7 +20,7 @@ export async function createUser(data: CreateUser) {
   }
 
   const user = await prisma.user.create({ data })
-  cookies().set('@call:userId', user.id, { path: '/', maxAge: 60 * 60 * 24 * 30 }) // 30 days
+  cookies().set('ignite-call.user-id', user.id, { path: '/', maxAge: 60 * 60 * 24 * 30 }) // 30 days
   revalidatePath('/users')
 
   return { user }
