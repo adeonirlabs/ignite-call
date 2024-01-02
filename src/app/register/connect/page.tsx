@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 
-import { ConnectToGoogle } from '~/components/buttons/connect-to-google'
+import { ConnectToGoogleForm } from '~/components/forms/connect-to-google'
 import { Steps } from '~/components/ui/steps'
 
 export default function Connect() {
@@ -17,10 +17,7 @@ export default function Connect() {
         <Steps current={2} size={4} />
       </header>
       <section className="flex flex-col gap-4 rounded-lg border border-zinc-200/10 bg-zinc-600/20 p-4">
-        <div className="flex items-center justify-between rounded-lg border border-zinc-200/10 p-4">
-          <strong>Google Agenda</strong>
-          <ConnectToGoogle />
-        </div>
+        <ConnectToGoogleForm />
         <button className="btn-accent btn" disabled type="submit">
           Próximo passo
           <ArrowRight />
