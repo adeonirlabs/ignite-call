@@ -2,7 +2,7 @@
 
 import { ArrowRight, Check } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
-import { signIn, useSession } from 'next-auth/react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 export function ConnectToGoogleForm() {
   const params = useSearchParams()
@@ -12,22 +12,30 @@ export function ConnectToGoogleForm() {
   const isSignedIn = session.status === 'authenticated'
 
   const handleConnect = async () => {
-    await signIn('google', { callbackUrl: '/register/connect' })
+    if (hasAuthError) {
+      await signOut({ callbackUrl: '/register/connect' })
+    }
+
+    await signIn('google')
   }
 
   return (
     <div>
       <div className="flex items-center justify-between rounded-lg border border-zinc-200/10 p-4">
         <strong>Google Agenda</strong>
-        {isSignedIn ? (
-          <button className="btn-accent btn-outline btn btn-sm" disabled={isSignedIn} type="submit">
-            Conectado
-            <Check size={16} />
+        {hasAuthError ? (
+          <button className="btn-accent btn-outline btn btn-sm" onClick={handleConnect} type="submit">
+            Tentar novamente
           </button>
         ) : (
-          <button className="btn-accent btn-outline btn btn-sm" onClick={handleConnect} type="submit">
-            Conectar
-            <ArrowRight size={16} />
+          <button
+            className="btn-accent btn-outline btn btn-sm"
+            disabled={isSignedIn}
+            onClick={isSignedIn ? undefined : handleConnect}
+            type="submit"
+          >
+            {isSignedIn ? 'Conectado' : 'Conectar'}
+            {isSignedIn ? <Check size={16} /> : <ArrowRight size={16} />}
           </button>
         )}
       </div>
