@@ -40,7 +40,7 @@ export function TimeIntervalsForm() {
 
   const onSubmit = (data: unknown) => {
     const formData = data as TimeIntervalsData
-    console.log(formData)
+    console.info(formData)
   }
 
   return (
