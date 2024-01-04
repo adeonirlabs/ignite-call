@@ -56,7 +56,7 @@ export function ClaimUsernameForm() {
           />
         </div>
         {errors.username ? (
-          <span className="label label-text-alt pb-0 text-red-400">{errors.username?.message}</span>
+          <span className="label label-text-alt pb-0 text-red-400">{errors.username.message}</span>
         ) : null}
       </div>
       <button className="btn btn-accent w-32" disabled={isSubmitting} type="submit">

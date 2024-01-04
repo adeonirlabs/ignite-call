@@ -51,7 +51,7 @@ export function RegisterForm() {
           />
         </div>
         {errors.username ? (
-          <span className="label label-text-alt pb-0 text-red-400">{errors.username?.message}</span>
+          <span className="label label-text-alt pb-0 text-red-400">{errors.username.message}</span>
         ) : null}
       </label>
       <label className="form-control w-full">
@@ -65,7 +65,7 @@ export function RegisterForm() {
           type="text"
           {...register('name')}
         />
-        {errors.name ? <span className="label-error label">{errors.name?.message}</span> : null}
+        {errors.name ? <span className="label-error label">{errors.name.message}</span> : null}
       </label>
       <button className="btn btn-accent mt-2" disabled={isSubmitting} type="submit">
         {isSubmitting ? (
