@@ -13,7 +13,7 @@ export function ConnectToGoogleForm() {
   }
 
   return (
-    <form className="flex items-center justify-between rounded-lg border border-zinc-200/10 p-4">
+    <form className="flex items-center justify-between rounded border border-zinc-200/10 p-4">
       <strong>Google Agenda</strong>
       <button
         className="btn btn-outline btn-accent btn-sm"

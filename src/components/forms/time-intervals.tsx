@@ -45,20 +45,15 @@ export function TimeIntervalsForm() {
 
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-      <fieldset className="flex flex-col divide-y divide-zinc-200/10 rounded-lg border border-zinc-200/10">
+      <fieldset className="flex flex-col divide-y divide-zinc-200/10 rounded border border-zinc-200/10">
         {fields.map((field, index) => (
           <div className="flex justify-between px-4 py-3" key={field.id}>
-            <label className="label cursor-pointer gap-2">
+            <label className="label cursor-pointer gap-4">
               <Controller
                 control={control}
                 name={`intervals.${index}.enabled`}
                 render={({ field: { onChange, value } }) => (
-                  <input
-                    checked={value}
-                    className="checkbox-accent checkbox checkbox-sm"
-                    onChange={onChange}
-                    type="checkbox"
-                  />
+                  <input checked={value} className="checkbox-accent checkbox" onChange={onChange} type="checkbox" />
                 )}
               />
               <span className="text-zinc-100">{weekDays[field.day]}</span>

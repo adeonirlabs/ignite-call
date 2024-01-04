@@ -3,11 +3,15 @@
 @tailwind utilities;
 
 .btn {
-  @apply no-animation focus-visible:outline-4 focus-visible:outline-offset-0;
+  @apply no-animation rounded focus-visible:outline-4 focus-visible:outline-offset-0 disabled:text-opacity-30;
 }
 
 .btn-accent {
   @apply focus-visible:outline-accent/20;
+}
+
+.input, .checkbox {
+  @apply rounded;
 }
 
 .input, .checkbox, .radio {
