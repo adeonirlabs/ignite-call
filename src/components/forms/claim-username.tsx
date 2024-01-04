@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form'
 import type { ClaimUsername } from '~/schemas/claim-username'
 import { claimUsernameSchema } from '~/schemas/claim-username'
 import { cn } from '~/utils/classnames'
-import { sleep } from '~/utils/sleep'
+import { sleepTime } from '~/utils/sleep'
 
 export function ClaimUsernameForm() {
   const router = useRouter()
@@ -28,7 +28,7 @@ export function ClaimUsernameForm() {
 
   const onSubmit = async (data: ClaimUsername) => {
     const { username } = data
-    await sleep(500)
+    await sleepTime(500)
     router.push(`/register?username=${username}`)
   }
 

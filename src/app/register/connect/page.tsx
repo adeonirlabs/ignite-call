@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 import { ConnectToGoogleForm } from '~/components/forms/connect-to-google'
 import { Steps } from '~/components/ui/steps'
-import { sleep } from '~/utils/sleep'
+import { sleepTime } from '~/utils/sleep'
 
 export default function Connect() {
   const params = useSearchParams()
@@ -21,7 +21,7 @@ export default function Connect() {
 
   const handleNextStep = () => {
     setIsSubmitting(true)
-    sleep(500)
+    sleepTime(500)
     router.push(`/register/agenda`)
   }
 

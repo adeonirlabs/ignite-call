@@ -7,7 +7,7 @@ import { useFormContext } from 'react-hook-form'
 import { createUserAction } from '~/actions/create-user'
 import type { CreateUser } from '~/schemas/create-user'
 import { cn } from '~/utils/classnames'
-import { sleep } from '~/utils/sleep'
+import { sleepTime } from '~/utils/sleep'
 
 export function RegisterForm() {
   const router = useRouter()
@@ -23,7 +23,7 @@ export function RegisterForm() {
 
     try {
       await createUserAction({ username, name })
-      await sleep(500)
+      await sleepTime(500)
       router.push(`/register/connect`)
     } catch (error) {
       if (error instanceof Error) {
