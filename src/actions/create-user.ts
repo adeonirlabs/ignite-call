@@ -6,7 +6,7 @@ import { cookies } from 'next/headers'
 import { prisma } from '~/lib/prisma'
 import { type CreateUser, createUserSchema } from '~/schemas/create-user'
 
-export async function createUser(data: CreateUser) {
+export async function createUserAction(data: CreateUser) {
   const parsed = createUserSchema.safeParse(data)
 
   if (!parsed.success) {
