@@ -49,7 +49,7 @@ export function ClaimUsernameForm() {
         >
           <span className="text-accent/40">call.me/</span>
           <input
-            className="h-full w-full appearance-none bg-transparent placeholder:text-zinc-300/50"
+            className="h-full w-full bg-transparent placeholder:text-zinc-300/50"
             placeholder="Nome de usuário"
             type="text"
             {...register('username')}
