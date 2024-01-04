@@ -14,7 +14,7 @@ export function TimeIntervalsForm() {
     control,
     handleSubmit,
     watch,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting, errors, isValid },
   } = useForm<TimeIntervals>({
     resolver: zodResolver(timeIntervalsSchema),
     defaultValues: {
@@ -78,7 +78,7 @@ export function TimeIntervalsForm() {
         ))}
       </fieldset>
       {errors.intervals ? <span className="label-error label">{errors.intervals.root?.message}</span> : null}
-      <button className="btn btn-accent mt-2" disabled={isSubmitting} type="submit">
+      <button className="btn btn-accent mt-2" disabled={isSubmitting || !isValid} type="submit">
         {isSubmitting ? (
           <span className="loading loading-spinner"></span>
         ) : (
