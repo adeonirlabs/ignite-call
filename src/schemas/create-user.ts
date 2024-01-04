@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const createUser = {
+export const createUserSchema = z.object({
   username: z
     .string()
     .min(3, 'O nome de usuário deve ter pelo menos 3 caracteres.')
@@ -13,7 +13,6 @@ const createUser = {
       /^[a-zA-Z]{2,}\s[a-zA-Z]{2,}$/,
       'O nome completo deve conter pelo menos duas palavras com no mínimo 3 caracteres cada.',
     ),
-}
+})
 
-export const createUserSchema = z.object(createUser)
 export type CreateUser = z.infer<typeof createUserSchema>
