@@ -16,6 +16,12 @@ export const {
       }
       return true
     },
+    async session({ session, user }) {
+      return {
+        ...session,
+        user,
+      }
+    },
   },
   pages: {
     error: '/auth/error',
