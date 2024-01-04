@@ -8,7 +8,7 @@ export default function Agenda() {
     <main className="mx-auto mb-4 mt-20 max-w-xl px-4">
       <header className="flex flex-col gap-6 pb-6">
         <div className="flex flex-col gap-2">
-          <strong className="text-2xl font-bold text-accent">Quase lá</strong>
+          <strong className="text-2xl font-bold text-accent">Defina sua disponibilidade</strong>
           <span className="text-zinc-300">
             Defina o intervalo de horários que você está disponível em cada dia da semana.
           </span>
