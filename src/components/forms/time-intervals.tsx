@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 
-import type { TimeIntervals } from '~/schemas/time-intervals'
+import type { TimeIntervals, TimeIntervalsData } from '~/schemas/time-intervals'
 import { timeIntervalsSchema } from '~/schemas/time-intervals'
 import { getWeekDays } from '~/utils/datetime'
 
@@ -38,8 +38,9 @@ export function TimeIntervalsForm() {
   const weekDays = getWeekDays()
   const intervals = watch('intervals')
 
-  const onSubmit = (data: TimeIntervals) => {
-    console.log(data)
+  const onSubmit = (data: unknown) => {
+    const formData = data as TimeIntervalsData
+    console.log(formData)
   }
 
   return (
@@ -52,7 +53,12 @@ export function TimeIntervalsForm() {
                 control={control}
                 name={`intervals.${index}.enabled`}
                 render={({ field: { onChange, value } }) => (
-                  <input checked={value} className="checkbox-accent checkbox" onChange={onChange} type="checkbox" />
+                  <input
+                    checked={value}
+                    className="checkbox-accent checkbox checkbox-sm"
+                    onChange={onChange}
+                    type="checkbox"
+                  />
                 )}
               />
               <span className="text-zinc-100">{weekDays[field.day]}</span>
