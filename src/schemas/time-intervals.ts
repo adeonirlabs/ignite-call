@@ -15,7 +15,7 @@ export const timeIntervalsSchema = z.object({
     .length(7)
     .transform(val => val.filter(interval => interval.enabled))
     .refine(val => val.length > 0, {
-      message: 'Pelo menos um dia deve estar habilitado',
+      message: 'Pelo menos um dia deve estar habilitado.',
     })
     .transform(val =>
       val.map(interval => ({
@@ -25,7 +25,7 @@ export const timeIntervalsSchema = z.object({
       })),
     )
     .refine(val => val.every(interval => interval.endTime - 60 >= interval.startTime), {
-      message: 'O intervalo de tempo deve ser de pelo menos 1 hora',
+      message: 'O intervalo de tempo deve ser de pelo menos 1 hora.',
     }),
 })
 
