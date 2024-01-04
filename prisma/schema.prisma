@@ -15,8 +15,9 @@ model User {
   image     String?
   createdAt DateTime @default(now()) @map("created_at")
 
-  accounts Account[]
-  sessions Session[]
+  accounts      Account[]
+  sessions      Session[]
+  timeIntervals TimeInterval[]
 
   @@map("users")
 }
@@ -50,4 +51,16 @@ model Session {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
+}
+
+model TimeInterval {
+  id        String @id @default(cuid())
+  userId    String @map("user_id")
+  weekDay   Int    @map("week_day")
+  startTime Int    @map("start_time")
+  endTime   Int    @map("end_time")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("time_intervals")
 }
