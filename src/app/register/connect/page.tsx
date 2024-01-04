@@ -1,18 +1,29 @@
 'use client'
 
 import { ArrowRight } from 'lucide-react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
+import { useState } from 'react'
 
 import { ConnectToGoogleForm } from '~/components/forms/connect-to-google'
 import { Steps } from '~/components/ui/steps'
+import { sleep } from '~/utils/sleep'
 
 export default function Connect() {
   const params = useSearchParams()
   const session = useSession()
+  const router = useRouter()
 
   const hasAuthError = !!params.get('error')
   const isSignedIn = session.status === 'authenticated'
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleNextStep = () => {
+    setIsSubmitting(true)
+    sleep(500)
+    router.push(`/register/agenda`)
+  }
 
   return (
     <main className="mx-auto mb-4 mt-20 max-w-xl px-4">
@@ -28,9 +39,20 @@ export default function Connect() {
       </header>
       <section className="flex flex-col gap-4 rounded-lg border border-zinc-200/10 bg-zinc-600/20 p-4">
         <ConnectToGoogleForm />
-        <button className="btn btn-accent" disabled={!isSignedIn || hasAuthError} type="submit">
-          Próximo passo
-          <ArrowRight />
+        <button
+          className="btn btn-accent"
+          disabled={!isSignedIn || hasAuthError || isSubmitting}
+          onClick={handleNextStep}
+          type="submit"
+        >
+          {isSubmitting ? (
+            <span className="loading loading-spinner"></span>
+          ) : (
+            <>
+              Próximo passo
+              <ArrowRight />
+            </>
+          )}
         </button>
       </section>
     </main>
