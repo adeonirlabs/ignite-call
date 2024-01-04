@@ -10,11 +10,11 @@
   @apply focus-visible:outline-accent/20;
 }
 
-.input {
+.input, .checkbox, .radio {
   @apply focus-within:outline-4 focus-within:outline-offset-0 focus:outline-4 focus:outline-offset-0;
 }
 
-.input-accent {
+.input-accent, .checkbox-accent, .radio-accent {
   @apply focus-within:outline-accent/20 focus:outline-accent/20;
 }
 
