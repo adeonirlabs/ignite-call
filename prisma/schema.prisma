@@ -13,6 +13,7 @@ model User {
   name      String   @map("name")
   email     String?  @unique
   image     String?
+  bio       String?
   createdAt DateTime @default(now()) @map("created_at")
 
   accounts      Account[]
