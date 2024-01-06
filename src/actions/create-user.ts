@@ -20,7 +20,12 @@ export async function createUser(data: CreateUser) {
     throw new Error('This user already exists.')
   }
 
-  const user = await prisma.user.create({ data })
+  const user = await prisma.user.create({
+    data: {
+      name: parsed.data.name,
+      username: parsed.data.username,
+    },
+  })
   cookies().set('ignite-call.user-id', user.id, { path: '/', maxAge: 60 * 60 * 24 * 30 }) // 30 days
-  revalidatePath('/users')
+  revalidatePath('/register')
 }
