@@ -14,11 +14,11 @@
   @apply rounded;
 }
 
-.input, .checkbox, .radio {
+.input, .checkbox, .radio, .textarea {
   @apply focus-within:outline-4 focus-within:outline-offset-0 focus:outline-4 focus:outline-offset-0;
 }
 
-.input-accent, .checkbox-accent, .radio-accent {
+.input-accent, .checkbox-accent, .radio-accent, .textarea-accent {
   @apply focus-within:outline-accent/20 focus:outline-accent/20;
 }
 
