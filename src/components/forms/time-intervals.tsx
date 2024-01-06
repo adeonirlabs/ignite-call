@@ -2,11 +2,13 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
-import { Controller, useFieldArray, useForm } from 'react-hook-form'
+import { useFieldArray, useForm } from 'react-hook-form'
 
+import { createTimeIntervalsAction } from '~/actions/create-time-intervals'
 import type { TimeIntervals, TimeIntervalsData } from '~/schemas/time-intervals'
 import { timeIntervalsSchema } from '~/schemas/time-intervals'
 import { getWeekDays } from '~/utils/datetime'
+import { sleepTime } from '~/utils/sleep'
 
 export function TimeIntervalsForm() {
   const {
@@ -14,7 +16,8 @@ export function TimeIntervalsForm() {
     control,
     handleSubmit,
     watch,
-    formState: { isSubmitting, errors, isValid },
+    getValues,
+    formState: { isSubmitting, errors },
   } = useForm<TimeIntervals>({
     resolver: zodResolver(timeIntervalsSchema),
     defaultValues: {
@@ -37,10 +40,19 @@ export function TimeIntervalsForm() {
 
   const weekDays = getWeekDays()
   const intervals = watch('intervals')
+  const isValid = getValues('intervals').some(interval => interval.enabled)
 
-  const onSubmit = (data: unknown) => {
+  const onSubmit = async (data: unknown) => {
     const formData = data as TimeIntervalsData
-    console.info(formData)
+
+    try {
+      await createTimeIntervalsAction(formData)
+      await sleepTime(500)
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message)
+      }
+    }
   }
 
   return (
@@ -49,13 +61,7 @@ export function TimeIntervalsForm() {
         {fields.map((field, index) => (
           <div className="flex justify-between px-4 py-3" key={field.id}>
             <label className="label cursor-pointer gap-4">
-              <Controller
-                control={control}
-                name={`intervals.${index}.enabled`}
-                render={({ field: { onChange, value } }) => (
-                  <input checked={value} className="checkbox-accent checkbox" onChange={onChange} type="checkbox" />
-                )}
-              />
+              <input className="checkbox-accent checkbox" type="checkbox" {...register(`intervals.${index}.enabled`)} />
               <span className="text-zinc-100">{weekDays[field.day]}</span>
             </label>
             <div className="flex items-center gap-4">
