@@ -6,8 +6,10 @@ import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 
+import { updateProfile } from '~/actions/update-profile'
 import type { Profile } from '~/schemas/profile'
 import { profileSchema } from '~/schemas/profile'
+import { sleepTime } from '~/utils/sleep'
 
 export function UpdateProfileForm() {
   const session = useSession()
@@ -21,7 +23,14 @@ export function UpdateProfileForm() {
   })
 
   const onSubmit = async (data: Profile) => {
-    console.info(data)
+    try {
+      await updateProfile(data)
+      await sleepTime(500)
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message)
+      }
+    }
   }
 
   return (
