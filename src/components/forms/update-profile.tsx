@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 
@@ -13,6 +14,7 @@ import { sleepTime } from '~/utils/sleep'
 
 export function UpdateProfileForm() {
   const session = useSession()
+  const router = useRouter()
 
   const {
     register,
@@ -26,6 +28,7 @@ export function UpdateProfileForm() {
     try {
       await updateProfile(data)
       await sleepTime(500)
+      router.push(`/schedule/${session.data?.user.username}`)
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message)
