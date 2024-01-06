@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useFormContext } from 'react-hook-form'
 
-import { createUserAction } from '~/actions/create-user'
+import { createUser } from '~/actions/create-user'
 import type { CreateUser } from '~/schemas/create-user'
 import { cn } from '~/utils/classnames'
 import { sleepTime } from '~/utils/sleep'
@@ -22,7 +22,7 @@ export function RegisterForm() {
     const { username, name } = data
 
     try {
-      await createUserAction({ username, name })
+      await createUser({ username, name })
       await sleepTime(500)
       router.push(`/register/connect`)
     } catch (error) {

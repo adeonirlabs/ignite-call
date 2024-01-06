@@ -4,9 +4,10 @@ import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 
 import { prisma } from '~/lib/prisma'
-import { type CreateUser, createUserSchema } from '~/schemas/create-user'
+import type { CreateUser } from '~/schemas/create-user'
+import { createUserSchema } from '~/schemas/create-user'
 
-export async function createUserAction(data: CreateUser) {
+export async function createUser(data: CreateUser) {
   const parsed = createUserSchema.safeParse(data)
 
   if (!parsed.success) {

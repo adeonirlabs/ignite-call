@@ -17,7 +17,7 @@ export const timeIntervalsSchema = z.object({
   ),
 })
 
-export async function createTimeIntervalsAction(data: TimeIntervalsData) {
+export async function createTimeIntervals(data: TimeIntervalsData) {
   const session = await auth()
 
   if (!session || !session.user) {

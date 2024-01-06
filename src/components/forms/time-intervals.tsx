@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
 import { useFieldArray, useForm } from 'react-hook-form'
 
-import { createTimeIntervalsAction } from '~/actions/create-time-intervals'
+import { createTimeIntervals } from '~/actions/create-time-intervals'
 import type { TimeIntervals, TimeIntervalsData } from '~/schemas/time-intervals'
 import { timeIntervalsSchema } from '~/schemas/time-intervals'
 import { getWeekDays } from '~/utils/datetime'
@@ -46,7 +46,7 @@ export function TimeIntervalsForm() {
     const formData = data as TimeIntervalsData
 
     try {
-      await createTimeIntervalsAction(formData)
+      await createTimeIntervals(formData)
       await sleepTime(500)
     } catch (error) {
       if (error instanceof Error) {
