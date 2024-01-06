@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useFieldArray, useForm } from 'react-hook-form'
 
 import { createTimeIntervals } from '~/actions/create-time-intervals'
@@ -11,6 +12,8 @@ import { getWeekDays } from '~/utils/datetime'
 import { sleepTime } from '~/utils/sleep'
 
 export function TimeIntervalsForm() {
+  const router = useRouter()
+
   const {
     register,
     control,
@@ -48,6 +51,7 @@ export function TimeIntervalsForm() {
     try {
       await createTimeIntervals(formData)
       await sleepTime(500)
+      router.push(`/register/profile`)
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message)
