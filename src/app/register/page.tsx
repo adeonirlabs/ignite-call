@@ -13,15 +13,17 @@ import { createUserSchema } from '~/schemas/create-user'
 export default function Register() {
   const params = useSearchParams()
 
+  const username = params.has('username') ? params.get('username') : undefined
+
   const form = useForm<CreateUser>({
     resolver: zodResolver(createUserSchema),
   })
 
   useEffect(() => {
-    if (params.has('username')) {
-      form.setValue('username', params.get('username') ?? '')
+    if (username) {
+      form.setValue('username', username)
     }
-  }, [form, params])
+  }, [form, params, username])
 
   return (
     <main className="mx-auto mb-4 mt-20 max-w-xl px-4">

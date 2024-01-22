@@ -15,7 +15,7 @@ export default function Connect() {
   const router = useRouter()
 
   const hasAuthError = !!params.get('error')
-  const isSignedIn = session.status === 'authenticated'
+  const isAuthenticated = session.status === 'authenticated'
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -41,7 +41,7 @@ export default function Connect() {
         <ConnectToGoogleForm />
         <button
           className="btn btn-accent"
-          disabled={!isSignedIn || hasAuthError || isSubmitting}
+          disabled={!isAuthenticated || hasAuthError || isSubmitting}
           onClick={handleNextStep}
           type="submit"
         >

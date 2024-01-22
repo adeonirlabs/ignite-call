@@ -1,12 +1,9 @@
 import NextAuth from 'next-auth'
 
-declare module '@auth/core/types' {
+declare module 'next-auth' {
   interface User {
     username: string
   }
-}
-
-declare module 'next-auth' {
   interface Session {
     user: User
   }
