@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+> Ignite - Projeto #6
 
-## Getting Started
+# Ignite Call
 
-First, run the development server:
+<img src=".github/assets/call.png" />
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Sobre o projeto
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Este é o projeto Ignite Call, um aplicativo de agendamento de horários baseado em calendário. Ele foi construído com várias tecnologias modernas para fornecer uma experiência de usuário suave e eficiente. Contém as seguintes funcionalidades:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Solicita nome de usuário e nome completo para persistir no banco de dados
+- Conecta com Google através de login social e solicita permissões de acesso ao calendário
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Melhorias adicionadas
 
-## Learn More
+-
 
-To learn more about Next.js, take a look at the following resources:
+## Tecnologias Utilizadas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- React
+- TypeScript
+- Next.js
+- Next-Auth
+- Google Calendar API
+- Tailwind CSS
+- DaisyUI
+- Eslint
+- Prettier
+- Bun
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+> O projeto original não inclui Next.js App Router (v14), Next-Auth (v5), Tailwind CSS, DaisyUI, Eslint e Prettier
