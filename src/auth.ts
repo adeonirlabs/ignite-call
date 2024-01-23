@@ -22,6 +22,11 @@ export const {
         user,
       }
     },
+    authorized({ request, auth }) {
+      const { pathname } = request.nextUrl
+      if (pathname === '/schedule') return !!auth
+      return true
+    },
   },
   pages: {
     error: '/auth/error',
