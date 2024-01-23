@@ -7,7 +7,7 @@ import { auth } from '~/auth'
 import { prisma } from '~/lib/prisma'
 import type { TimeIntervalsData } from '~/schemas/time-intervals'
 
-export const timeIntervalsSchema = z.object({
+const timeIntervalsSchema = z.object({
   intervals: z.array(
     z.object({
       weekDay: z.number(),
