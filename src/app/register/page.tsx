@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
-import { RegisterForm } from '~/components/forms/register'
+import { RegisterForm } from '~/components/forms/register-username'
 import { Steps } from '~/components/ui/steps'
 import type { CreateUser } from '~/schemas/create-user'
 import { createUserSchema } from '~/schemas/create-user'
