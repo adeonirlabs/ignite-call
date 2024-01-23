@@ -7,7 +7,7 @@ import { prisma } from '~/lib/prisma'
 export const PrismaAdapter = (): Adapter => {
   return {
     ...AuthPrismaAdapter(prisma),
-    createUser: async ({ name, email, image }) => {
+    createUser: async ({ name, email, image, bio }) => {
       const cookieId = cookies().get('ignite-call.user-id')?.value
 
       if (cookieId === undefined) {
@@ -20,6 +20,7 @@ export const PrismaAdapter = (): Adapter => {
           name: name!,
           email,
           image,
+          bio,
         },
       })
 
@@ -31,6 +32,7 @@ export const PrismaAdapter = (): Adapter => {
         name: user.name,
         email: user.email!,
         image: user.image,
+        bio: user.bio || '',
         emailVerified: null,
       }
     },
@@ -47,6 +49,7 @@ export const PrismaAdapter = (): Adapter => {
         name: user.name,
         email: user.email!,
         image: user.image,
+        bio: user.bio || '',
         emailVerified: null,
       }
     },
@@ -63,6 +66,7 @@ export const PrismaAdapter = (): Adapter => {
         name: user.name,
         email: user.email!,
         image: user.image,
+        bio: user.bio || '',
         emailVerified: null,
       }
     },
@@ -83,6 +87,7 @@ export const PrismaAdapter = (): Adapter => {
         name: user.name,
         email: user.email!,
         image: user.image,
+        bio: user.bio || '',
         emailVerified: null,
       }
     },
@@ -97,6 +102,7 @@ export const PrismaAdapter = (): Adapter => {
         name: user.name,
         email: user.email!,
         image: user.image,
+        bio: user.bio || '',
         emailVerified: null,
       }
     },
@@ -136,6 +142,7 @@ export const PrismaAdapter = (): Adapter => {
           name: user.name,
           email: user.email!,
           image: user.image,
+          bio: user.bio || '',
           emailVerified: null,
         },
       }
