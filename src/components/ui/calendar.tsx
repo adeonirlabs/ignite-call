@@ -4,7 +4,7 @@ import type { ComponentProps } from 'react'
 import { cn } from '~/utils/classnames'
 import { getWeekDays } from '~/utils/datetime'
 
-export function Calendar({ className, ...props }: ComponentProps<'section'>) {
+export function Calendar({ className, ...props }: ComponentProps<'article'>) {
   const weekDays = getWeekDays({ short: true })
 
   const arrowStyles = cn(
@@ -13,7 +13,7 @@ export function Calendar({ className, ...props }: ComponentProps<'section'>) {
   )
 
   return (
-    <section className={cn('flex flex-col gap-6', className)} {...props}>
+    <article className={cn('flex flex-col gap-6', className)} {...props}>
       <header className="flex items-center justify-between">
         <strong className="text-lg font-semibold">
           Janeiro <span className="text-base font-normal text-zinc-400">2024</span>
@@ -55,7 +55,7 @@ export function Calendar({ className, ...props }: ComponentProps<'section'>) {
           </tr>
         </tbody>
       </table>
-    </section>
+    </article>
   )
 }
 
