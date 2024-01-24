@@ -1,11 +1,11 @@
 'use client'
 
 import { ArrowLeft, ArrowRight } from 'lucide-react'
-import { type ComponentProps, useState } from 'react'
+import { type ComponentProps, useMemo, useState } from 'react'
 
 import { dayjs } from '~/lib/dayjs'
 import { cn } from '~/utils/classnames'
-import { getWeekDays } from '~/utils/datetime'
+import { getMonthWeeks, getWeekDays } from '~/utils/datetime'
 
 export function Calendar({ className, ...props }: ComponentProps<'article'>) {
   const [currentDate, setCurrentDate] = useState(() => dayjs().set('date', 1))
@@ -13,6 +13,8 @@ export function Calendar({ className, ...props }: ComponentProps<'article'>) {
   const weekDays = getWeekDays({ short: true })
   const currentMonth = currentDate.format('MMMM')
   const currentYear = currentDate.format('YYYY')
+
+  const monthWeeks = useMemo(() => getMonthWeeks({ month: currentDate }), [currentDate])
 
   const handlePrevMonth = () => {
     setCurrentDate(state => state.subtract(1, 'month'))
@@ -50,7 +52,7 @@ export function Calendar({ className, ...props }: ComponentProps<'article'>) {
           </button>
         </div>
       </header>
-      <table className="w-full table-fixed border-spacing-1">
+      <table className="w-full table-fixed border-separate border-spacing-1">
         <thead>
           <tr>
             {weekDays.map(weekDay => (
@@ -61,27 +63,17 @@ export function Calendar({ className, ...props }: ComponentProps<'article'>) {
           </tr>
         </thead>
         <tbody className="before:block before:h-3">
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              <button className={dayButtonStyles} disabled type="button">
-                1
-              </button>
-            </td>
-            <td>
-              <button className={dayButtonStyles} type="button">
-                2
-              </button>
-            </td>
-            <td>
-              <button className={dayButtonStyles} type="button">
-                3
-              </button>
-            </td>
-          </tr>
+          {monthWeeks.map(({ week, days }) => (
+            <tr key={week}>
+              {days.map(({ date, disabled }) => (
+                <td key={date.toString()}>
+                  <button className={dayButtonStyles} disabled={disabled} type="button">
+                    {date.get('date')}
+                  </button>
+                </td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
     </article>
