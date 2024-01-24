@@ -19,6 +19,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   timeIntervals TimeInterval[]
+  Schedule      Schedule[]
 
   @@map("users")
 }
@@ -64,4 +65,18 @@ model TimeInterval {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("time_intervals")
+}
+
+model Schedule {
+  id        String   @id @default(cuid())
+  date      DateTime
+  name      String
+  email     String
+  comments  String?
+  createdAt DateTime @default(now()) @map("created_at")
+  userId    String   @map("user_id")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("schedules")
 }
