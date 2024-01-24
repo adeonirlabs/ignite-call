@@ -1,6 +1,6 @@
 'use client'
 
-import type { ComponentProps } from 'react'
+import { type ComponentProps, useState } from 'react'
 
 import { Calendar } from '~/components/ui/calendar'
 import { cn } from '~/utils/classnames'
@@ -8,7 +8,13 @@ import { cn } from '~/utils/classnames'
 import { TimePicker } from '../ui/timepicker'
 
 export function SelectDateTimeForm({ className, ...props }: ComponentProps<'section'>) {
-  const isDateSelected = false
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+
+  const isDateSelected = !!selectedDate
+
+  const handleSelectDate = (date: Date) => {
+    setSelectedDate(date)
+  }
 
   return (
     <section
@@ -19,7 +25,7 @@ export function SelectDateTimeForm({ className, ...props }: ComponentProps<'sect
       )}
       {...props}
     >
-      <Calendar className="p-6" />
+      <Calendar className="p-6" onSelectDate={handleSelectDate} selectedDate={selectedDate} />
 
       {isDateSelected ? (
         <TimePicker

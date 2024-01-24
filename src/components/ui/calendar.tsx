@@ -7,7 +7,12 @@ import { dayjs } from '~/lib/dayjs'
 import { cn } from '~/utils/classnames'
 import { getMonthWeeks, getWeekDays } from '~/utils/datetime'
 
-export function Calendar({ className, ...props }: ComponentProps<'article'>) {
+interface CalendarProps extends ComponentProps<'article'> {
+  selectedDate: Date | null
+  onSelectDate: (date: Date) => void
+}
+
+export function Calendar({ selectedDate, onSelectDate, className, ...props }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(() => dayjs().set('date', 1))
 
   const weekDays = getWeekDays({ short: true })
@@ -67,7 +72,12 @@ export function Calendar({ className, ...props }: ComponentProps<'article'>) {
             <tr key={week}>
               {days.map(({ date, disabled }) => (
                 <td key={date.toString()}>
-                  <button className={dayButtonStyles} disabled={disabled} type="button">
+                  <button
+                    className={dayButtonStyles}
+                    disabled={disabled}
+                    onClick={() => onSelectDate(date.toDate())}
+                    type="button"
+                  >
                     {date.get('date')}
                   </button>
                 </td>
