@@ -42,7 +42,11 @@ export const getMonthWeeks = ({ month }: MonthWeeksParams): MonthWeeks => {
   )
   const nextDays = createDisabledDays(endOfMonth.add(1, 'day'), endOfMonth.add(1, 'day').endOf('week'))
 
-  const days = [...previewsDays, ...monthArray.map(date => ({ date, disabled: false })), ...nextDays]
+  const days = [
+    ...previewsDays,
+    ...monthArray.map(date => ({ date, disabled: date.endOf('day').isBefore(new Date()) })),
+    ...nextDays,
+  ]
   const weeks = Array(Math.ceil(days.length / 7))
     .fill(0)
     .map((_, index) => ({ week: index + 1, days: days.slice(index * 7, (index + 1) * 7) }))
