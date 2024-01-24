@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
 import { auth } from '~/auth'
-import { ConfirmScheduleForm } from '~/components/forms/confirm-schedule'
-// import { SelectDateTimeForm } from '~/components/forms/select-datetime'
+// import { ConfirmScheduleForm } from '~/components/forms/confirm-schedule'
+import { SelectDateTimeForm } from '~/components/forms/select-datetime'
 
 export default async function Schedule() {
   const session = await auth()
@@ -21,8 +21,8 @@ export default async function Schedule() {
         <h2 className="text-xl font-medium">{session?.user.name}</h2>
         <span className="mt-1 text-xs text-zinc-400">{session?.user.bio}</span>
       </header>
-      {/* <SelectDateTimeForm /> */}
-      <ConfirmScheduleForm />
+      <SelectDateTimeForm />
+      {/* <ConfirmScheduleForm /> */}
     </main>
   )
 }

@@ -8,7 +8,7 @@ import { cn } from '~/utils/classnames'
 import { TimePicker } from '../ui/timepicker'
 
 export function SelectDateTimeForm({ className, ...props }: ComponentProps<'section'>) {
-  const isDateSelected = true
+  const isDateSelected = false
 
   return (
     <section

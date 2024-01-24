@@ -1,28 +1,51 @@
-import { ArrowLeft, ArrowRight } from 'lucide-react'
-import type { ComponentProps } from 'react'
+'use client'
 
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { type ComponentProps, useState } from 'react'
+
+import { dayjs } from '~/lib/dayjs'
 import { cn } from '~/utils/classnames'
 import { getWeekDays } from '~/utils/datetime'
 
 export function Calendar({ className, ...props }: ComponentProps<'article'>) {
-  const weekDays = getWeekDays({ short: true })
+  const [currentDate, setCurrentDate] = useState(() => dayjs().set('date', 1))
 
-  const arrowStyles = cn(
+  const weekDays = getWeekDays({ short: true })
+  const currentMonth = currentDate.format('MMMM')
+  const currentYear = currentDate.format('YYYY')
+
+  const handlePrevMonth = () => {
+    setCurrentDate(state => state.subtract(1, 'month'))
+  }
+
+  const handleNextMonth = () => {
+    setCurrentDate(state => state.add(1, 'month'))
+  }
+
+  const arrowButtonStyles = cn(
     'rounded text-zinc-400 transition hover:text-accent focus:outline-none',
-    'focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-800',
+    'focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2',
+    'focus-visible:ring-offset-zinc-800',
+  )
+
+  const dayButtonStyles = cn(
+    'flex aspect-square w-full items-center justify-center rounded p-2 text-center',
+    'bg-zinc-700 transition enabled:hover:bg-zinc-600',
+    'disabled:cursor-default disabled:bg-zinc-500/20 disabled:opacity-40',
+    'focus:outline-none focus-visible:ring-2 focus-visible:ring-accent',
   )
 
   return (
     <article className={cn('flex flex-col gap-6', className)} {...props}>
       <header className="flex items-center justify-between">
-        <strong className="text-lg font-semibold">
-          Janeiro <span className="text-base font-normal text-zinc-400">2024</span>
+        <strong className="text-lg font-semibold capitalize">
+          {currentMonth} <span className="text-base font-normal text-zinc-400">{currentYear}</span>
         </strong>
         <div className="flex items-center gap-2">
-          <button className={arrowStyles} type="button">
+          <button className={arrowButtonStyles} onClick={handlePrevMonth} title="Mês anterior" type="button">
             <ArrowLeft size={20} />
           </button>
-          <button className={arrowStyles} type="button">
+          <button className={arrowButtonStyles} onClick={handleNextMonth} title="Próximo mês" type="button">
             <ArrowRight size={20} />
           </button>
         </div>
@@ -44,13 +67,19 @@ export function Calendar({ className, ...props }: ComponentProps<'article'>) {
             <td></td>
             <td></td>
             <td>
-              <DayButton disabled>1</DayButton>
+              <button className={dayButtonStyles} disabled type="button">
+                1
+              </button>
             </td>
             <td>
-              <DayButton>2</DayButton>
+              <button className={dayButtonStyles} type="button">
+                2
+              </button>
             </td>
             <td>
-              <DayButton>3</DayButton>
+              <button className={dayButtonStyles} type="button">
+                3
+              </button>
             </td>
           </tr>
         </tbody>
@@ -58,17 +87,3 @@ export function Calendar({ className, ...props }: ComponentProps<'article'>) {
     </article>
   )
 }
-
-const DayButton = ({ className, ...props }: ComponentProps<'button'>) => (
-  <button
-    className={cn(
-      'flex aspect-square w-full items-center justify-center rounded p-2 text-center',
-      'bg-zinc-700 transition enabled:hover:bg-zinc-600',
-      'disabled:cursor-default disabled:bg-zinc-500/20 disabled:opacity-40',
-      'focus:outline-none focus-visible:ring-2 focus-visible:ring-accent',
-      className,
-    )}
-    type="button"
-    {...props}
-  />
-)
