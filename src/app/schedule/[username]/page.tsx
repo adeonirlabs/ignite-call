@@ -7,7 +7,7 @@ export default async function Schedule() {
   const session = await auth()
 
   return (
-    <main className="mx-auto mb-4 mt-20 flex w-full max-w-[52rem] flex-col items-center px-4">
+    <main className="mx-auto mb-4 mt-20 flex w-full max-w-4xl flex-col items-center px-4">
       <header className="flex flex-col items-center justify-center">
         <Image
           alt="Adeonir Kohl"
