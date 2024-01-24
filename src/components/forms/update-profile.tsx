@@ -41,10 +41,10 @@ export function UpdateProfileForm() {
       <div className="form-control w-full">
         <span className="label label-text">Foto de perfil</span>
         <Image
-          alt={session.data?.user.name}
+          alt={session.data?.user.name || ''}
           className="rounded-full"
           height={64}
-          src={session.data?.user.image}
+          src={session.data?.user.image || ''}
           width={64}
         />
       </div>
