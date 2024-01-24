@@ -48,7 +48,7 @@ export function UpdateProfileForm() {
           width={64}
         />
       </div>
-      <div className="form-control w-full">
+      <label className="form-control w-full">
         <span className="label label-text">Sobre você</span>
         <textarea
           className="textarea textarea-bordered textarea-accent placeholder:text-zinc-300/50"
@@ -57,7 +57,7 @@ export function UpdateProfileForm() {
           {...register('bio')}
         />
         <span className="label label-text-alt">Fale um pouco sobre você. Isto será exibido em sua página pessoal.</span>
-      </div>
+      </label>
       <button className="btn btn-accent mt-2" disabled={isSubmitting} type="submit">
         {isSubmitting ? (
           <span className="loading loading-spinner"></span>
