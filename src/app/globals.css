@@ -2,12 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+textarea {
+  @apply !text-base;
+}
+
 .btn {
   @apply no-animation rounded focus-visible:outline-4 focus-visible:outline-offset-0 disabled:text-opacity-30;
+  @apply focus-visible:outline-white/10;
 }
 
 .btn-accent {
-  @apply focus-visible:outline-accent/20;
+  @apply focus-visible:outline-accent/30;
 }
 
 .input, .checkbox {
@@ -19,7 +24,7 @@
 }
 
 .input-accent, .checkbox-accent, .radio-accent, .textarea-accent {
-  @apply focus-within:outline-accent/20 focus:outline-accent/20;
+  @apply focus-within:outline-accent/30 focus:outline-accent/30;
 }
 
 .input-error {
