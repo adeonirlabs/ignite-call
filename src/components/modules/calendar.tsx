@@ -12,10 +12,9 @@ import { getMonthWeeks, getWeekDays } from '~/utils/datetime'
 
 interface CalendarProps extends ComponentProps<'article'> {
   selectedDate: Date | null
-  onSelectDate: (date: Date) => void
+  onSelectDate: (date: Date | null) => void
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function Calendar({ selectedDate, onSelectDate, className, ...props }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(() => dayjs().set('date', 1))
   const [activeDate, setActiveDate] = useState<Date | null>(null)
@@ -37,6 +36,12 @@ export function Calendar({ selectedDate, onSelectDate, className, ...props }: Ca
 
   const handleNextMonth = () => {
     setCurrentDate(state => state.add(1, 'month'))
+  }
+
+  const handleCurrentMonth = () => {
+    setCurrentDate(dayjs().set('date', 1))
+    onSelectDate(null)
+    setActiveDate(null)
   }
 
   const handleSelectDate = (date: Date) => {
@@ -62,6 +67,17 @@ export function Calendar({ selectedDate, onSelectDate, className, ...props }: Ca
             type="button"
           >
             <ArrowLeft size={20} />
+          </button>
+          <button
+            className={cn(
+              'rounded text-zinc-400 transition hover:text-accent focus:outline-none',
+              'focus-visible:outline-4 focus-visible:outline-accent/30',
+              'focus-visible:ring-offset-zinc-800',
+            )}
+            onClick={handleCurrentMonth}
+            type="button"
+          >
+            Hoje
           </button>
           <button
             className={cn(

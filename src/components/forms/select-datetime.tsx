@@ -19,7 +19,7 @@ export function SelectDateTimeForm({ className, ...props }: ComponentProps<'sect
 
   const { data: availability } = useListAvailabilitiesQuery({ username, date })
 
-  const handleSelectDate = (date: Date) => {
+  const handleSelectDate = (date: Date | null) => {
     setSelectedDate(date)
   }
 
