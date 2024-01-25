@@ -12,7 +12,6 @@ interface CalendarProps extends ComponentProps<'article'> {
   onSelectDate: (date: Date) => void
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function Calendar({ selectedDate, onSelectDate, className, ...props }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(() => dayjs().set('date', 1))
   const [activeDate, setActiveDate] = useState<Date | null>(null)

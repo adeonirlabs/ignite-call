@@ -1,17 +1,37 @@
-import dayjs from 'dayjs'
-import { type ComponentProps } from 'react'
+'use client'
 
+import dayjs from 'dayjs'
+import { useParams } from 'next/navigation'
+import { type ComponentProps, useEffect, useState } from 'react'
+
+import { api } from '~/lib/axios'
 import { cn } from '~/utils/classnames'
 
 interface TimePickerProps extends ComponentProps<'aside'> {
   selectedDate: Date
 }
 
+interface Availability {
+  possibleTimes: number[]
+  availableTimes: number[]
+}
+
 export function TimePicker({ selectedDate, className, ...props }: TimePickerProps) {
+  const { username } = useParams<{ username: string }>()
+
+  const [availability, setAvailability] = useState<Availability | null>(null)
   // const [activeTime, setActiveTime] = useState<Date | null>(null)
 
   const weekDay = dayjs(selectedDate).format('dddd')
   const dateAndMonth = dayjs(selectedDate).format('D[ de ]MMMM')
+
+  useEffect(() => {
+    if (!selectedDate) return
+
+    api
+      .get(`/users/${username}/availability`, { params: { date: dayjs(selectedDate).format('YYYY-MM-DD') } })
+      .then(({ data }) => setAvailability(data))
+  }, [selectedDate, username])
 
   return (
     <aside className={cn('flex flex-col gap-6', className)} {...props}>
