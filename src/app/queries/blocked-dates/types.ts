@@ -4,4 +4,7 @@ export type ListBlockedDatesRequest = {
   month: string
 }
 
-export type ListBlockedDatesResponse = number[]
+export type ListBlockedDatesResponse = {
+  blockedWeekDays: number[]
+  blockedDates: number[]
+}

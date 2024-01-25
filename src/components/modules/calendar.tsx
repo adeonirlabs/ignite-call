@@ -15,6 +15,7 @@ interface CalendarProps extends ComponentProps<'article'> {
   onSelectDate: (date: Date | null) => void
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function Calendar({ selectedDate, onSelectDate, className, ...props }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(() => dayjs().set('date', 1))
   const [activeDate, setActiveDate] = useState<Date | null>(null)
@@ -26,9 +27,12 @@ export function Calendar({ selectedDate, onSelectDate, className, ...props }: Ca
   const year = currentDate.format('YYYY')
   const month = currentDate.format('MM')
 
-  const { data: blockedDates } = useListBlockedDatesQuery({ username, year, month })
+  const { data } = useListBlockedDatesQuery({ username, year, month })
 
-  const monthWeeks = useMemo(() => getMonthWeeks({ currentDate, blockedDates }), [currentDate, blockedDates])
+  const monthWeeks = useMemo(
+    () => getMonthWeeks({ currentDate, blockedWeekDays: data?.blockedWeekDays, blockedDates: data?.blockedDates }),
+    [currentDate, data],
+  )
 
   const handlePrevMonth = () => {
     setCurrentDate(state => state.subtract(1, 'month'))
