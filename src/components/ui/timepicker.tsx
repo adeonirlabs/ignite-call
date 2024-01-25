@@ -61,9 +61,9 @@ const TimeButton = ({ className, ...props }: ComponentProps<'button'>) => (
   <button
     className={cn(
       'flex w-full items-center justify-center rounded p-1 text-center',
-      'bg-zinc-900/30 transition enabled:hover:bg-zinc-600/30',
-      'disabled:cursor-default disabled:bg-zinc-500/10 disabled:opacity-40',
-      'focus:outline-none focus-visible:ring-2 focus-visible:ring-accent',
+      'bg-zinc-700/50 transition focus:outline-none enabled:hover:bg-zinc-600/50',
+      'disabled:cursor-default disabled:bg-zinc-500/20 disabled:opacity-40',
+      'focus:outline-none focus:outline-offset-0 focus-visible:outline-4 focus-visible:outline-accent/30',
       className,
     )}
     type="button"
