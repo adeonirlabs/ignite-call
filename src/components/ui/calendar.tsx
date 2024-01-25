@@ -12,8 +12,10 @@ interface CalendarProps extends ComponentProps<'article'> {
   onSelectDate: (date: Date) => void
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function Calendar({ selectedDate, onSelectDate, className, ...props }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(() => dayjs().set('date', 1))
+  const [activeDate, setActiveDate] = useState<Date | null>(null)
 
   const weekDays = getWeekDays({ short: true })
   const currentMonth = currentDate.format('MMMM')
@@ -27,6 +29,11 @@ export function Calendar({ selectedDate, onSelectDate, className, ...props }: Ca
 
   const handleNextMonth = () => {
     setCurrentDate(state => state.add(1, 'month'))
+  }
+
+  const handleSelectDate = (date: Date) => {
+    onSelectDate(date)
+    setActiveDate(date)
   }
 
   const arrowButtonStyles = cn(
@@ -70,18 +77,21 @@ export function Calendar({ selectedDate, onSelectDate, className, ...props }: Ca
         <tbody className="before:block before:h-3">
           {monthWeeks.map(({ week, days }) => (
             <tr key={week}>
-              {days.map(({ date, disabled }) => (
-                <td key={date.toString()}>
-                  <button
-                    className={dayButtonStyles}
-                    disabled={disabled}
-                    onClick={() => onSelectDate(date.toDate())}
-                    type="button"
-                  >
-                    {date.get('date')}
-                  </button>
-                </td>
-              ))}
+              {days.map(({ date, disabled }) => {
+                const isActive = dayjs(activeDate).isSame(date, 'day')
+                return (
+                  <td key={date.toString()}>
+                    <button
+                      className={cn(dayButtonStyles, isActive && 'bg-accent text-zinc-900 enabled:hover:bg-accent/90')}
+                      disabled={disabled}
+                      onClick={() => handleSelectDate(date.toDate())}
+                      type="button"
+                    >
+                      {date.format('D')}
+                    </button>
+                  </td>
+                )
+              })}
             </tr>
           ))}
         </tbody>

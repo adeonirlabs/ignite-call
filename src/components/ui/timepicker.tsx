@@ -1,30 +1,38 @@
-import type { ComponentProps } from 'react'
+import dayjs from 'dayjs'
+import { type ComponentProps } from 'react'
 
 import { cn } from '~/utils/classnames'
 
-export function TimePicker({ className, ...props }: ComponentProps<'aside'>) {
+interface TimePickerProps extends ComponentProps<'aside'> {
+  selectedDate: Date
+}
+
+export function TimePicker({ selectedDate, className, ...props }: TimePickerProps) {
+  // const [activeTime, setActiveTime] = useState<Date | null>(null)
+
+  const weekDay = dayjs(selectedDate).format('dddd')
+  const dateAndMonth = dayjs(selectedDate).format('D[ de ]MMMM')
+
   return (
     <aside className={cn('flex flex-col gap-6', className)} {...props}>
       <h2 className="text-lg font-semibold">
-        quarta-feira <span className="text-base font-normal text-zinc-400">20 de janeiro</span>
+        {weekDay} <span className="text-base font-normal text-zinc-400">{dateAndMonth}</span>
       </h2>
-      <ul className="grid grid-cols-2 gap-2 sm:grid-cols-1">
-        <li>
-          <TimeButton disabled>9:00</TimeButton>
-        </li>
-        <li>
-          <TimeButton>10:00</TimeButton>
-        </li>
-        <li>
-          <TimeButton>11:00</TimeButton>
-        </li>
-        <li>
-          <TimeButton>12:00</TimeButton>
-        </li>
-        <li>
-          <TimeButton>13:00</TimeButton>
-        </li>
-      </ul>
+      <div className="grid grid-cols-2 gap-2 overflow-y-auto sm:grid-cols-1">
+        <TimeButton disabled>8:00</TimeButton>
+        <TimeButton disabled>9:00</TimeButton>
+        <TimeButton>10:00</TimeButton>
+        <TimeButton>11:00</TimeButton>
+        <TimeButton>12:00</TimeButton>
+        <TimeButton>13:00</TimeButton>
+        <TimeButton>14:00</TimeButton>
+        <TimeButton>15:00</TimeButton>
+        <TimeButton>16:00</TimeButton>
+        <TimeButton>17:00</TimeButton>
+        <TimeButton>18:00</TimeButton>
+        <TimeButton>19:00</TimeButton>
+        <TimeButton>20:00</TimeButton>
+      </div>
     </aside>
   )
 }
