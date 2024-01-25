@@ -2,7 +2,7 @@
 
 import dayjs from 'dayjs'
 import type { ComponentProps } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { cn } from '~/utils/classnames'
 
@@ -12,7 +12,7 @@ interface Availability {
 }
 
 interface TimePickerProps extends ComponentProps<'aside'> {
-  availability: Availability | null
+  availability: Availability
   selectedDate: Date
 }
 
@@ -26,7 +26,7 @@ export function TimePicker({ availability, selectedDate, className, ...props }: 
     setActiveTime(date)
   }
 
-  if (!availability) return null
+  useEffect(() => setActiveTime(null), [selectedDate])
 
   return (
     <aside className={cn('flex flex-col gap-6', className)} {...props}>
@@ -34,7 +34,7 @@ export function TimePicker({ availability, selectedDate, className, ...props }: 
         {weekDay} <span className="text-base font-normal text-zinc-400">{dateAndMonth}</span>
       </h2>
       <div className="grid grid-cols-2 gap-2 overflow-y-auto sm:grid-cols-1">
-        {availability?.possibleTimes.map(time => {
+        {availability.possibleTimes.map(time => {
           const isActive = time === dayjs(activeTime).hour()
           return (
             <TimeButton
