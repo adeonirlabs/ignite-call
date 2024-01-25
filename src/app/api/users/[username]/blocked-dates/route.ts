@@ -23,9 +23,31 @@ export async function GET(request: NextRequest, { params }: { params: { username
     where: { userId: user.id },
   })
 
-  const blockedDays = Array.from({ length: 7 }, (_, i) => i).filter(
+  const blockedWeekDays = Array.from({ length: 7 }, (_, i) => i).filter(
     weekDay => !availableDays.some(availableDay => availableDay.weekDay === weekDay),
   )
 
-  return Response.json(blockedDays)
+  const yearMonth = `${queryYear}-${queryMonth}`
+
+  const rawDates: Array<{ date: number }> = await prisma.$queryRaw`
+  SELECT
+    EXTRACT(DAY FROM S.date) AS date,
+    COUNT(S.date) AS count,
+    (TI.end_time - TI.start_time) / 60 AS duration
+  FROM
+    schedules S
+    LEFT JOIN time_intervals TI ON TI.week_day = WEEKDAY(DATE_ADD(S.date, INTERVAL 1 DAY))
+  WHERE
+    S.user_id = ${user.id}
+    AND DATE_FORMAT(S.date, '%Y-%m') = ${yearMonth}
+  GROUP BY
+    EXTRACT(DAY FROM S.date),
+    (TI.end_time - TI.start_time) / 60
+  HAVING
+    count >= duration
+  `
+
+  const blockedDates = rawDates.map(({ date }) => date)
+
+  return Response.json({ blockedWeekDays, blockedDates })
 }
