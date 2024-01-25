@@ -50,9 +50,12 @@ export async function GET(request: NextRequest, { params }: { params: { username
     },
   })
 
-  const availableTimes = possibleTimes.filter(
-    time => !blocketTimes.some(blocketTime => dayjs(blocketTime.date).get('hour') === time),
-  )
+  const availableTimes = possibleTimes.filter(time => {
+    const isBlockedTime = !blocketTimes.some(blocketTime => dayjs(blocketTime.date).get('hour') === time)
+    const isPastTime = date.set('hour', time).isBefore(new Date())
+
+    return isBlockedTime && !isPastTime
+  })
 
   return Response.json({ possibleTimes, availableTimes })
 }
