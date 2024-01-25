@@ -5,7 +5,8 @@ import { ArrowLeft, ArrowRight, Calendar, Clock } from 'lucide-react'
 import type { ComponentProps } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { type ConfirmSchedule, confirmScheduleSchema } from '~/schemas/confirm-schedule'
+import type { ConfirmSchedule } from '~/schemas/confirm-schedule'
+import { confirmScheduleSchema } from '~/schemas/confirm-schedule'
 import { cn } from '~/utils/classnames'
 
 export function ConfirmScheduleForm({ className, ...props }: ComponentProps<'section'>) {

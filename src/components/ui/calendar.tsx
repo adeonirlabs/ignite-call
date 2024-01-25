@@ -1,7 +1,8 @@
 'use client'
 
 import { ArrowLeft, ArrowRight } from 'lucide-react'
-import { type ComponentProps, useMemo, useState } from 'react'
+import type { ComponentProps } from 'react'
+import { useMemo, useState } from 'react'
 
 import { dayjs } from '~/lib/dayjs'
 import { cn } from '~/utils/classnames'
