@@ -1,18 +1,37 @@
 'use client'
 
-import { type ComponentProps, useState } from 'react'
+import { useParams } from 'next/navigation'
+import type { ComponentProps } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Calendar } from '~/components/ui/calendar'
+import { TimePicker } from '~/components/ui/timepicker'
+import { api } from '~/lib/axios'
+import { dayjs } from '~/lib/dayjs'
 import { cn } from '~/utils/classnames'
 
-import { TimePicker } from '../ui/timepicker'
+interface Availability {
+  possibleTimes: number[]
+  availableTimes: number[]
+}
 
 export function SelectDateTimeForm({ className, ...props }: ComponentProps<'section'>) {
+  const { username } = useParams<{ username: string }>()
+
+  const [availability, setAvailability] = useState<Availability | null>(null)
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
 
   const handleSelectDate = (date: Date) => {
     setSelectedDate(date)
   }
+
+  useEffect(() => {
+    if (!selectedDate) return
+
+    api
+      .get(`/users/${username}/availability`, { params: { date: dayjs(selectedDate).format('YYYY-MM-DD') } })
+      .then(({ data }) => setAvailability(data))
+  }, [selectedDate, username])
 
   return (
     <section
@@ -27,6 +46,7 @@ export function SelectDateTimeForm({ className, ...props }: ComponentProps<'sect
 
       {selectedDate ? (
         <TimePicker
+          availability={availability}
           className={cn('absolute inset-y-0 right-0 w-80 border-t border-zinc-600/40 p-6 md:border-l md:border-t-0')}
           selectedDate={selectedDate}
         />

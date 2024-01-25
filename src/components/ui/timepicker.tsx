@@ -1,37 +1,32 @@
 'use client'
 
 import dayjs from 'dayjs'
-import { useParams } from 'next/navigation'
-import { type ComponentProps, useEffect, useState } from 'react'
+import type { ComponentProps } from 'react'
+import { useState } from 'react'
 
-import { api } from '~/lib/axios'
 import { cn } from '~/utils/classnames'
-
-interface TimePickerProps extends ComponentProps<'aside'> {
-  selectedDate: Date
-}
 
 interface Availability {
   possibleTimes: number[]
   availableTimes: number[]
 }
 
-export function TimePicker({ selectedDate, className, ...props }: TimePickerProps) {
-  const { username } = useParams<{ username: string }>()
+interface TimePickerProps extends ComponentProps<'aside'> {
+  availability: Availability | null
+  selectedDate: Date
+}
 
-  const [availability, setAvailability] = useState<Availability | null>(null)
-  // const [activeTime, setActiveTime] = useState<Date | null>(null)
+export function TimePicker({ availability, selectedDate, className, ...props }: TimePickerProps) {
+  const [activeTime, setActiveTime] = useState<Date | null>(null)
 
   const weekDay = dayjs(selectedDate).format('dddd')
   const dateAndMonth = dayjs(selectedDate).format('D[ de ]MMMM')
 
-  useEffect(() => {
-    if (!selectedDate) return
+  const handleSelectTime = (date: Date) => {
+    setActiveTime(date)
+  }
 
-    api
-      .get(`/users/${username}/availability`, { params: { date: dayjs(selectedDate).format('YYYY-MM-DD') } })
-      .then(({ data }) => setAvailability(data))
-  }, [selectedDate, username])
+  if (!availability) return null
 
   return (
     <aside className={cn('flex flex-col gap-6', className)} {...props}>
@@ -39,19 +34,19 @@ export function TimePicker({ selectedDate, className, ...props }: TimePickerProp
         {weekDay} <span className="text-base font-normal text-zinc-400">{dateAndMonth}</span>
       </h2>
       <div className="grid grid-cols-2 gap-2 overflow-y-auto sm:grid-cols-1">
-        <TimeButton disabled>8:00</TimeButton>
-        <TimeButton disabled>9:00</TimeButton>
-        <TimeButton>10:00</TimeButton>
-        <TimeButton>11:00</TimeButton>
-        <TimeButton>12:00</TimeButton>
-        <TimeButton>13:00</TimeButton>
-        <TimeButton>14:00</TimeButton>
-        <TimeButton>15:00</TimeButton>
-        <TimeButton>16:00</TimeButton>
-        <TimeButton>17:00</TimeButton>
-        <TimeButton>18:00</TimeButton>
-        <TimeButton>19:00</TimeButton>
-        <TimeButton>20:00</TimeButton>
+        {availability?.possibleTimes.map(time => {
+          const isActive = time === dayjs(activeTime).hour()
+          return (
+            <TimeButton
+              className={cn(isActive && 'bg-accent text-zinc-900 enabled:hover:bg-accent/90')}
+              disabled={!availability.availableTimes.includes(time)}
+              key={time}
+              onClick={() => handleSelectTime(dayjs(selectedDate).hour(time).toDate())}
+            >
+              {String(time).padStart(2, '0')}:00
+            </TimeButton>
+          )
+        })}
       </div>
     </aside>
   )
