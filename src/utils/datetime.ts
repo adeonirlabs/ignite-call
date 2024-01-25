@@ -27,6 +27,8 @@ interface MonthWeek {
 type MonthWeeks = MonthWeek[]
 
 export const getMonthWeeks = ({ currentDate, blockedDates }: MonthWeeksParams): MonthWeeks => {
+  if (!blockedDates) return []
+
   const startOfMonth = currentDate.startOf('month')
   const endOfMonth = currentDate.endOf('month')
   const monthArray = Array(currentDate.daysInMonth())
@@ -48,7 +50,7 @@ export const getMonthWeeks = ({ currentDate, blockedDates }: MonthWeeksParams): 
     ...previewsDays,
     ...monthArray.map(date => ({
       date,
-      disabled: (date.endOf('day').isBefore(new Date()) || blockedDates?.includes(date.get('day'))) as boolean,
+      disabled: (date.endOf('day').isBefore(new Date()) || blockedDates.includes(date.get('day'))) as boolean,
       current: true,
     })),
     ...nextDays,

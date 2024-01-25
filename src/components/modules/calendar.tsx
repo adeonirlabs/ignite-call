@@ -77,7 +77,7 @@ export function Calendar({ selectedDate, onSelectDate, className, ...props }: Ca
             onClick={handleCurrentMonth}
             type="button"
           >
-            Hoje
+            Mês atual
           </button>
           <button
             className={cn(
