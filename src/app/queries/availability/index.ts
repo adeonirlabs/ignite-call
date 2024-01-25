@@ -19,12 +19,12 @@ const availabilityKeys = {
 const availabilityQueries = {
   useListAvailabilitiesQuery: ({ username, date }: ListAvailabilitiesRequest) =>
     useQuery({
-      queryKey: availabilityKeys.list(date || ''),
+      queryKey: availabilityKeys.list(date || 'date'),
       queryFn: async () =>
         await api
           .get<ListAvailabilitiesResponse>(endpoints.availabilities(username, date))
           .then(response => response.data),
-      enabled: !!username && !!date,
+      enabled: !!date,
     }),
 }
 
