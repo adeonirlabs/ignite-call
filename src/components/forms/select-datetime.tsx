@@ -5,7 +5,7 @@ import type { ComponentProps } from 'react'
 import { useState } from 'react'
 
 import { useListAvailabilitiesQuery } from '~/app/queries/availability'
-import { Calendar } from '~/components/ui/calendar'
+import { Calendar } from '~/components/modules/calendar'
 import { TimePicker } from '~/components/ui/timepicker'
 import { dayjs } from '~/lib/dayjs'
 import { cn } from '~/utils/classnames'
@@ -14,6 +14,7 @@ export function SelectDateTimeForm({ className, ...props }: ComponentProps<'sect
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
 
   const { username } = useParams<{ username: string }>()
+
   const date = selectedDate ? dayjs(selectedDate).format('YYYY-MM-DD') : undefined
 
   const { data: availability } = useListAvailabilitiesQuery({ username, date })

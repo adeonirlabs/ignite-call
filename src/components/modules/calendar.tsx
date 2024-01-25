@@ -1,9 +1,11 @@
 'use client'
 
 import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { useParams } from 'next/navigation'
 import type { ComponentProps } from 'react'
 import { useMemo, useState } from 'react'
 
+import { useListBlockedDatesQuery } from '~/app/queries/blocked-dates'
 import { dayjs } from '~/lib/dayjs'
 import { cn } from '~/utils/classnames'
 import { getMonthWeeks, getWeekDays } from '~/utils/datetime'
@@ -17,11 +19,16 @@ export function Calendar({ selectedDate, onSelectDate, className, ...props }: Ca
   const [currentDate, setCurrentDate] = useState(() => dayjs().set('date', 1))
   const [activeDate, setActiveDate] = useState<Date | null>(null)
 
-  const weekDays = getWeekDays({ short: true })
-  const currentMonth = currentDate.format('MMMM')
-  const currentYear = currentDate.format('YYYY')
+  const { username } = useParams<{ username: string }>()
 
-  const monthWeeks = useMemo(() => getMonthWeeks({ month: currentDate }), [currentDate])
+  const weekDays = getWeekDays({ short: true })
+  const monthName = currentDate.format('MMMM')
+  const year = currentDate.format('YYYY')
+  const month = currentDate.format('MM')
+
+  const { data: blockedDates } = useListBlockedDatesQuery({ username, year, month })
+
+  const monthWeeks = useMemo(() => getMonthWeeks({ currentDate, blockedDates }), [currentDate, blockedDates])
 
   const handlePrevMonth = () => {
     setCurrentDate(state => state.subtract(1, 'month'))
@@ -40,7 +47,7 @@ export function Calendar({ selectedDate, onSelectDate, className, ...props }: Ca
     <article className={cn('flex flex-col gap-6', className)} {...props}>
       <header className="flex items-center justify-between">
         <strong className="text-lg font-semibold capitalize">
-          {currentMonth} <span className="text-base font-normal text-zinc-400">{currentYear}</span>
+          {monthName} <span className="text-base font-normal text-zinc-400">{year}</span>
         </strong>
         <div className="flex items-center gap-2">
           <button

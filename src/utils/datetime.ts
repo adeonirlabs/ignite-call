@@ -11,7 +11,8 @@ export const getWeekDays = ({ short = false }: WeekDaysParams = {}) => {
 }
 
 interface MonthWeeksParams {
-  month: Dayjs
+  currentDate: Dayjs
+  blockedDates?: number[]
 }
 
 interface MonthWeek {
@@ -24,10 +25,10 @@ interface MonthWeek {
 
 type MonthWeeks = MonthWeek[]
 
-export const getMonthWeeks = ({ month }: MonthWeeksParams): MonthWeeks => {
-  const startOfMonth = month.startOf('month')
-  const endOfMonth = month.endOf('month')
-  const monthArray = Array(month.daysInMonth())
+export const getMonthWeeks = ({ currentDate, blockedDates }: MonthWeeksParams): MonthWeeks => {
+  const startOfMonth = currentDate.startOf('month')
+  const endOfMonth = currentDate.endOf('month')
+  const monthArray = Array(currentDate.daysInMonth())
     .fill(0)
     .map((_, index) => startOfMonth.add(index, 'day'))
 
@@ -44,7 +45,10 @@ export const getMonthWeeks = ({ month }: MonthWeeksParams): MonthWeeks => {
 
   const days = [
     ...previewsDays,
-    ...monthArray.map(date => ({ date, disabled: date.endOf('day').isBefore(new Date()) })),
+    ...monthArray.map(date => ({
+      date,
+      disabled: (date.endOf('day').isBefore(new Date()) || blockedDates?.includes(date.get('day'))) as boolean,
+    })),
     ...nextDays,
   ]
   const weeks = Array(Math.ceil(days.length / 7))
