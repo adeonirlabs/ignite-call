@@ -20,6 +20,7 @@ interface MonthWeek {
   days: {
     date: Dayjs
     disabled: boolean
+    current: boolean
   }[]
 }
 
@@ -35,7 +36,7 @@ export const getMonthWeeks = ({ currentDate, blockedDates }: MonthWeeksParams): 
   const createDisabledDays = (start: Dayjs, end: Dayjs) =>
     Array(end.diff(start, 'day') + 1)
       .fill(0)
-      .map((_, index) => ({ date: start.add(index, 'day'), disabled: true }))
+      .map((_, index) => ({ date: start.add(index, 'day'), disabled: true, current: false }))
 
   const previewsDays = createDisabledDays(
     startOfMonth.subtract(1, 'day').startOf('week'),
@@ -48,6 +49,7 @@ export const getMonthWeeks = ({ currentDate, blockedDates }: MonthWeeksParams): 
     ...monthArray.map(date => ({
       date,
       disabled: (date.endOf('day').isBefore(new Date()) || blockedDates?.includes(date.get('day'))) as boolean,
+      current: true,
     })),
     ...nextDays,
   ]

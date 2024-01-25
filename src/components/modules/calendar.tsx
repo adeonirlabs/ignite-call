@@ -15,6 +15,7 @@ interface CalendarProps extends ComponentProps<'article'> {
   onSelectDate: (date: Date) => void
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function Calendar({ selectedDate, onSelectDate, className, ...props }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(() => dayjs().set('date', 1))
   const [activeDate, setActiveDate] = useState<Date | null>(null)
@@ -89,7 +90,7 @@ export function Calendar({ selectedDate, onSelectDate, className, ...props }: Ca
         <tbody className="before:block before:h-3">
           {monthWeeks.map(({ week, days }) => (
             <tr key={week}>
-              {days.map(({ date, disabled }) => {
+              {days.map(({ date, disabled, current }) => {
                 const isActive = dayjs(activeDate).isSame(date, 'day')
                 return (
                   <td key={date.toString()}>
@@ -97,8 +98,9 @@ export function Calendar({ selectedDate, onSelectDate, className, ...props }: Ca
                       className={cn(
                         'flex aspect-square w-full items-center justify-center rounded p-2 text-center',
                         'bg-zinc-700 transition focus:outline-none enabled:hover:bg-zinc-600',
-                        'disabled:cursor-default disabled:bg-zinc-500/20 disabled:opacity-40',
+                        'disabled:cursor-default disabled:bg-zinc-500/25',
                         'focus:outline-offset-0 focus-visible:outline-4 focus-visible:outline-accent/30',
+                        current ? 'disabled:opacity-40' : 'disabled:opacity-15',
                         isActive && 'bg-accent text-zinc-900 enabled:hover:bg-accent/90',
                       )}
                       disabled={disabled}
