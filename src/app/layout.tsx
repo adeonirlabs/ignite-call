@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 import type { ReactNode } from 'react'
 
 import { auth } from '~/auth'
+import { QueryProvider } from '~/components/providers/query'
 import { SessionProvider } from '~/components/providers/session'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -20,7 +21,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html className="bg-zinc-900 text-zinc-100 antialiased" lang="en">
       <body className={inter.className}>
-        <SessionProvider session={session}>{children}</SessionProvider>
+        <SessionProvider session={session}>
+          <QueryProvider>{children}</QueryProvider>
+        </SessionProvider>
       </body>
     </html>
   )
