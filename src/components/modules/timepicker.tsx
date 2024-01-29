@@ -14,9 +14,10 @@ interface Availability {
 interface TimePickerProps extends ComponentProps<'aside'> {
   availability: Availability
   selectedDate: Date
+  onSelectTime: (date: Date | null) => void
 }
 
-export function TimePicker({ availability, selectedDate, className, ...props }: TimePickerProps) {
+export function TimePicker({ availability, selectedDate, onSelectTime, className, ...props }: TimePickerProps) {
   const [activeTime, setActiveTime] = useState<Date | null>(null)
 
   const weekDay = dayjs(selectedDate).format('dddd')
@@ -24,6 +25,7 @@ export function TimePicker({ availability, selectedDate, className, ...props }: 
 
   const handleSelectTime = (date: Date) => {
     setActiveTime(date)
+    onSelectTime(date)
   }
 
   useEffect(() => setActiveTime(null), [selectedDate])
@@ -33,15 +35,15 @@ export function TimePicker({ availability, selectedDate, className, ...props }: 
       <h2 className="text-lg font-semibold">
         {weekDay} <span className="text-base font-normal text-zinc-400">{dateAndMonth}</span>
       </h2>
-      <div className="grid grid-cols-2 gap-2 overflow-y-auto sm:grid-cols-1">
+      <div className="grid grid-cols-2 gap-2 overflow-y-auto p-2 sm:grid-cols-1">
         {availability.possibleTimes.map(time => {
-          const isActive = time === dayjs(activeTime).hour()
+          const isActive = time === dayjs(activeTime).get('hour')
           return (
             <TimeButton
               className={cn(isActive && 'bg-accent text-zinc-900 enabled:hover:bg-accent/90')}
               disabled={!availability.availableTimes.includes(time)}
               key={time}
-              onClick={() => handleSelectTime(dayjs(selectedDate).hour(time).toDate())}
+              onClick={() => handleSelectTime(dayjs(selectedDate).hour(time).startOf('hour').toDate())}
             >
               {String(time).padStart(2, '0')}:00
             </TimeButton>
