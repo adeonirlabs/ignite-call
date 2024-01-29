@@ -11,12 +11,10 @@ import { cn } from '~/utils/classnames'
 import { getMonthWeeks, getWeekDays } from '~/utils/datetime'
 
 interface CalendarProps extends ComponentProps<'article'> {
-  selectedDate: Date | null
   onSelectDate: (date: Date | null) => void
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function Calendar({ selectedDate, onSelectDate, className, ...props }: CalendarProps) {
+export function Calendar({ onSelectDate, className, ...props }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(() => dayjs().set('date', 1))
   const [activeDate, setActiveDate] = useState<Date | null>(null)
 
@@ -24,10 +22,10 @@ export function Calendar({ selectedDate, onSelectDate, className, ...props }: Ca
 
   const weekDays = getWeekDays({ short: true })
   const monthName = currentDate.format('MMMM')
+  const monthNumber = currentDate.format('MM')
   const year = currentDate.format('YYYY')
-  const month = currentDate.format('MM')
 
-  const { data } = useListBlockedDatesQuery({ username, year, month })
+  const { data } = useListBlockedDatesQuery({ username, year, month: monthNumber })
 
   const monthWeeks = useMemo(
     () => getMonthWeeks({ currentDate, blockedWeekDays: data?.blockedWeekDays, blockedDates: data?.blockedDates }),
