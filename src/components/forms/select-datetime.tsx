@@ -5,10 +5,10 @@ import { useParams } from 'next/navigation'
 import type { ComponentProps } from 'react'
 import { useEffect, useState } from 'react'
 
-import { useListAvailabilitiesQuery } from '~/app/queries/availability'
 import { Calendar } from '~/components/modules/calendar'
 import { TimePicker } from '~/components/modules/timepicker'
 import { dayjs } from '~/lib/dayjs'
+import { useListAvailabilitiesQuery } from '~/queries/availability'
 import { cn } from '~/utils/classnames'
 
 interface SelectDateTimeFormProps extends ComponentProps<'div'> {

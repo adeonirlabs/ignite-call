@@ -5,8 +5,8 @@ import { useParams } from 'next/navigation'
 import type { ComponentProps } from 'react'
 import { useMemo, useState } from 'react'
 
-import { useListBlockedDatesQuery } from '~/app/queries/blocked-dates'
 import { dayjs } from '~/lib/dayjs'
+import { useListBlockedDatesQuery } from '~/queries/blocked-dates'
 import { cn } from '~/utils/classnames'
 import { getMonthWeeks, getWeekDays } from '~/utils/datetime'
 
