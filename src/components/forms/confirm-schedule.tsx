@@ -11,13 +11,13 @@ import { confirmScheduleSchema } from '~/schemas/confirm-schedule'
 import { cn } from '~/utils/classnames'
 
 interface ConfirmScheduleFormProps extends ComponentProps<'section'> {
-  selectedDateTime: Date | null
+  scheduleDate: Date | null
   onPrevStep: () => void
 }
 
-export function ConfirmScheduleForm({ selectedDateTime, onPrevStep, className, ...props }: ConfirmScheduleFormProps) {
-  const date = dayjs(selectedDateTime).format('D [de] MMMM [de] YYYY')
-  const hour = dayjs(selectedDateTime).format('HH:mm')
+export function ConfirmScheduleForm({ scheduleDate, onPrevStep, className, ...props }: ConfirmScheduleFormProps) {
+  const date = dayjs(scheduleDate).format('D [de] MMMM [de] YYYY')
+  const hour = dayjs(scheduleDate).format('HH:mm')
 
   const {
     register,

@@ -21,7 +21,7 @@ export function TimePicker({ availability, selectedDate, onSelectTime, className
   const [activeTime, setActiveTime] = useState<Date | null>(null)
 
   const weekDay = dayjs(selectedDate).format('dddd')
-  const dateAndMonth = dayjs(selectedDate).format('D[ de ]MMMM')
+  const dateAndMonth = dayjs(selectedDate).format('D [de] MMMM')
 
   const handleSelectTime = (date: Date) => {
     setActiveTime(date)
