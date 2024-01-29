@@ -5,11 +5,20 @@ import { ArrowLeft, ArrowRight, Calendar, Clock } from 'lucide-react'
 import type { ComponentProps } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { dayjs } from '~/lib/dayjs'
 import type { ConfirmSchedule } from '~/schemas/confirm-schedule'
 import { confirmScheduleSchema } from '~/schemas/confirm-schedule'
 import { cn } from '~/utils/classnames'
 
-export function ConfirmScheduleForm({ className, ...props }: ComponentProps<'section'>) {
+interface ConfirmScheduleFormProps extends ComponentProps<'section'> {
+  selectedDateTime: Date | null
+  onPrevStep: () => void
+}
+
+export function ConfirmScheduleForm({ selectedDateTime, onPrevStep, className, ...props }: ConfirmScheduleFormProps) {
+  const date = dayjs(selectedDateTime).format('D [de] MMMM [de] YYYY')
+  const hour = dayjs(selectedDateTime).format('HH:mm')
+
   const {
     register,
     handleSubmit,
@@ -23,22 +32,19 @@ export function ConfirmScheduleForm({ className, ...props }: ComponentProps<'sec
   }
 
   return (
-    <section
-      className={cn('w-full max-w-2xl rounded-lg border border-zinc-200/10 bg-zinc-600/20', className)}
-      {...props}
-    >
+    <section className={cn('w-128 rounded-lg border border-zinc-200/10', className)} {...props}>
       <header className="flex items-center gap-8 border-b border-zinc-600/40 p-6">
         <div className="flex items-center gap-2">
           <Calendar className="text-zinc-500" size={20} />
-          <span>24 de janeiro de 2024</span>
+          <span>{date}</span>
         </div>
         <div className="flex items-center gap-2">
           <Clock className="text-zinc-500" size={20} />
-          <span>9:00</span>
+          <span>{hour}</span>
         </div>
       </header>
 
-      <form className="flex flex-col gap-4 p-6" onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex flex-col gap-4 p-6" id="confirm-schedule" onSubmit={handleSubmit(onSubmit)}>
         <label className="form-control w-full">
           <span className="label label-text">Nome completo</span>
           <input
@@ -69,23 +75,23 @@ export function ConfirmScheduleForm({ className, ...props }: ComponentProps<'sec
           />
           {errors.comments ? <span className="label-error label">{errors.comments.message}</span> : null}
         </label>
-        <div className="flex items-center justify-end gap-4">
-          <button className="btn btn-outline mt-2" disabled={isSubmitting} type="button">
-            <ArrowLeft />
-            Cancelar
-          </button>
-          <button className="btn btn-accent mt-2" disabled={isSubmitting} type="submit">
-            {isSubmitting ? (
-              <span className="loading loading-spinner"></span>
-            ) : (
-              <>
-                Confirmar
-                <ArrowRight />
-              </>
-            )}
-          </button>
-        </div>
       </form>
+      <footer className="flex items-center justify-end gap-4 border-t border-zinc-600/40 p-6">
+        <button className="btn btn-outline" disabled={isSubmitting} onClick={onPrevStep} type="button">
+          <ArrowLeft />
+          Voltar
+        </button>
+        <button className="btn btn-accent" disabled={isSubmitting} form="confirm-schedule" type="submit">
+          {isSubmitting ? (
+            <span className="loading loading-spinner"></span>
+          ) : (
+            <>
+              Confirmar
+              <ArrowRight />
+            </>
+          )}
+        </button>
+      </footer>
     </section>
   )
 }
