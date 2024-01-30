@@ -2,22 +2,28 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowLeft, ArrowRight, Calendar, Clock } from 'lucide-react'
+import { useParams } from 'next/navigation'
 import type { ComponentProps } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { dayjs } from '~/lib/dayjs'
+import { useCreateScheduleMutation } from '~/queries/schedule'
 import type { ConfirmSchedule } from '~/schemas/confirm-schedule'
 import { confirmScheduleSchema } from '~/schemas/confirm-schedule'
 import { cn } from '~/utils/classnames'
 
 interface ConfirmScheduleFormProps extends ComponentProps<'section'> {
-  scheduleDate: Date | null
+  scheduleDate: Date
   onPrevStep: () => void
 }
 
 export function ConfirmScheduleForm({ scheduleDate, onPrevStep, className, ...props }: ConfirmScheduleFormProps) {
   const date = dayjs(scheduleDate).format('D [de] MMMM [de] YYYY')
   const hour = dayjs(scheduleDate).format('HH:mm')
+
+  const { username } = useParams<{ username: string }>()
+
+  const { mutateAsync: createSchedule, isPending } = useCreateScheduleMutation()
 
   const {
     register,
@@ -28,7 +34,8 @@ export function ConfirmScheduleForm({ scheduleDate, onPrevStep, className, ...pr
   })
 
   const onSubmit = async (data: ConfirmSchedule) => {
-    console.info(data)
+    const { name, email, comments } = data
+    createSchedule({ username, name, email, comments, date: scheduleDate.toDateString() }).then(() => onPrevStep())
   }
 
   return (
@@ -77,12 +84,12 @@ export function ConfirmScheduleForm({ scheduleDate, onPrevStep, className, ...pr
         </label>
       </form>
       <footer className="flex items-center justify-end gap-4 border-t border-zinc-600/40 p-6">
-        <button className="btn btn-outline" disabled={isSubmitting} onClick={onPrevStep} type="button">
+        <button className="btn btn-outline" disabled={isSubmitting || isPending} onClick={onPrevStep} type="button">
           <ArrowLeft />
           Voltar
         </button>
-        <button className="btn btn-accent" disabled={isSubmitting} form="confirm-schedule" type="submit">
-          {isSubmitting ? (
+        <button className="btn btn-accent" disabled={isSubmitting || isPending} form="confirm-schedule" type="submit">
+          {isSubmitting || isPending ? (
             <span className="loading loading-spinner"></span>
           ) : (
             <>

@@ -43,7 +43,7 @@ export default function Schedule() {
         {nextStep === 'select-datetime' ? (
           <SelectDateTimeForm onNextStep={handleNextStep} onSelectDateTime={handleSelectDateTime} />
         ) : (
-          <ConfirmScheduleForm onPrevStep={handlePrevStep} scheduleDate={selectedDateTime} />
+          selectedDateTime && <ConfirmScheduleForm onPrevStep={handlePrevStep} scheduleDate={selectedDateTime} />
         )}
       </div>
     </main>
