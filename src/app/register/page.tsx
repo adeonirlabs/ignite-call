@@ -1,5 +1,11 @@
+import type { Metadata } from 'next'
+
 import { RegisterForm } from '~/components/forms/register-username'
 import { Steps } from '~/components/ui/steps'
+
+export const metadata: Metadata = {
+  title: 'Crie uma conta',
+}
 
 export default function Register() {
   return (
