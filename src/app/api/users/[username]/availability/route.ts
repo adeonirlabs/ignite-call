@@ -52,7 +52,7 @@ export async function GET(request: NextRequest, { params }: { params: { username
 
   const availableTimes = possibleTimes.filter(time => {
     const isBlockedTime = !blocketTimes.some(blocketTime => dayjs(blocketTime.date).get('hour') === time)
-    const isPastTime = date.set('hour', time).isBefore(new Date())
+    const isPastTime = date.set('hour', time).isBefore(dayjs())
 
     return isBlockedTime && !isPastTime
   })

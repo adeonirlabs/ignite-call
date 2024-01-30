@@ -24,7 +24,7 @@ export async function POST(request: NextRequest, { params }: { params: { usernam
 
   const scheduleDate = dayjs(date).startOf('hour')
 
-  if (scheduleDate.isBefore(new Date())) {
+  if (scheduleDate.isBefore(dayjs())) {
     return Response.json({ message: 'Invalid date' }, { status: 400 })
   }
 

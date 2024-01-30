@@ -1,5 +1,7 @@
 import type { Dayjs } from 'dayjs'
 
+import { dayjs } from '~/lib/dayjs'
+
 interface WeekDaysParams {
   short?: boolean
 }
@@ -51,7 +53,7 @@ export const getMonthWeeks = ({ currentDate, blockedWeekDays, blockedDates }: Mo
     ...previewsDays,
     ...monthArray.map(date => ({
       date,
-      disabled: (date.endOf('day').isBefore(new Date()) ||
+      disabled: (date.endOf('day').isBefore(dayjs()) ||
         blockedWeekDays.includes(date.get('day')) ||
         blockedDates?.includes(date.get('date'))) as boolean,
       current: true,
