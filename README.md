@@ -2,7 +2,7 @@
 
 # Ignite Call
 
-<img src=".github/assets/call.png" />
+<img src=".github/ignite-call.jpg" />
 
 ## Sobre o projeto
 
@@ -10,12 +10,11 @@ Este é o projeto Ignite Call, um aplicativo de agendamento de horários baseado
 
 - Solicita nome de usuário e nome completo para persistir no banco de dados
 - Conecta com Google através de login social e solicita permissões de acesso ao calendário
-
-## Melhorias adicionadas
-
--
+- Cria agendamento usando a Google Calendar API, persistindo no banco de dados
 
 ## Tecnologias Utilizadas
+
+> O projeto original não inclui Next.js App Router (v14), Next-Auth (v5), Tailwind CSS, DaisyUI, Eslint e Prettier
 
 - React
 - TypeScript
@@ -27,5 +26,3 @@ Este é o projeto Ignite Call, um aplicativo de agendamento de horários baseado
 - Eslint
 - Prettier
 - Bun
-
-> O projeto original não inclui Next.js App Router (v14), Next-Auth (v5), Tailwind CSS, DaisyUI, Eslint e Prettier
