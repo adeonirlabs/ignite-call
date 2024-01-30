@@ -1,7 +1,14 @@
-'use client'
+import type { Metadata } from 'next'
 
 import { UpdateProfileForm } from '~/components/forms/update-profile'
 import { Steps } from '~/components/ui/steps'
+
+export const metadata: Metadata = {
+  title: 'Atualize seu perfil',
+  robots: {
+    index: false,
+  },
+}
 
 export default function Profile() {
   return (
