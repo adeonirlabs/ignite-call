@@ -1,6 +1,17 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 
 import { auth } from '~/auth'
+
+export async function generateMetadata(): Promise<Metadata | null> {
+  const session = await auth()
+
+  if (!session) return null
+
+  return {
+    title: `Agendar com ${session.user.name} | Ignite Call`,
+  }
+}
 
 export default async function Schedule() {
   const session = await auth()
