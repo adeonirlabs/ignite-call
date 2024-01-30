@@ -1,7 +1,14 @@
-'use client'
+import type { Metadata } from 'next'
 
 import { TimeIntervalsForm } from '~/components/forms/time-intervals'
 import { Steps } from '~/components/ui/steps'
+
+export const metadata: Metadata = {
+  title: 'Selecione sua disponibilidade',
+  robots: {
+    index: false,
+  },
+}
 
 export default function Agenda() {
   return (
