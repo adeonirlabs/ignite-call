@@ -35,7 +35,7 @@ export function ConfirmScheduleForm({ scheduleDate, onPrevStep, className, ...pr
 
   const onSubmit = async (data: ConfirmSchedule) => {
     const { name, email, comments } = data
-    createSchedule({ username, name, email, comments, date: scheduleDate.toDateString() }).then(() => onPrevStep())
+    createSchedule({ username, name, email, comments, date: scheduleDate.toString() }).then(() => onPrevStep())
   }
 
   return (
