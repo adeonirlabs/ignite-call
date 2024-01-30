@@ -1,22 +1,31 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { useFormContext } from 'react-hook-form'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useForm } from 'react-hook-form'
 
 import { createUser } from '~/actions/create-user'
-import type { CreateUser } from '~/schemas/create-user'
+import { type CreateUser, createUserSchema } from '~/schemas/create-user'
 import { cn } from '~/utils/classnames'
 import { sleepTime } from '~/utils/sleep'
 
 export function RegisterForm() {
   const router = useRouter()
+  const params = useSearchParams()
+
+  const username = params.has('username') ? params.get('username') : undefined
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useFormContext<CreateUser>()
+  } = useForm<CreateUser>({
+    resolver: zodResolver(createUserSchema),
+    defaultValues: {
+      username: username ?? '',
+    },
+  })
 
   const onSubmit = async (data: CreateUser) => {
     const { username, name } = data
