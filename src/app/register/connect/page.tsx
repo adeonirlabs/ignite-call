@@ -1,5 +1,14 @@
+import type { Metadata } from 'next'
+
 import { ConnectToGoogleForm } from '~/components/forms/connect-to-google'
 import { Steps } from '~/components/ui/steps'
+
+export const metadata: Metadata = {
+  title: 'Conecte sua agenda do Google',
+  robots: {
+    index: false,
+  },
+}
 
 export default function Connect() {
   return (
