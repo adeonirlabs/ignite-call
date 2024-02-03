@@ -24,9 +24,7 @@ export function SelectDateTimeForm({ onSelectDateTime, onNextStep, className, ..
 
   const date = selectedDate ? dayjs(selectedDate).format('YYYY-MM-DD') : undefined
 
-  const { data: availability } = useListAvailabilitiesQuery({ username, date })
-
-  const isSubmitting = false
+  const { data: availability, isPending } = useListAvailabilitiesQuery({ username, date })
 
   const handleSelectDate = (date: Date | null) => {
     setSelectedDate(date)
@@ -65,12 +63,12 @@ export function SelectDateTimeForm({ onSelectDateTime, onNextStep, className, ..
       <footer className="flex items-center justify-end gap-4 border-t border-zinc-600/40 p-6">
         <button
           className="btn btn-accent"
-          disabled={isSubmitting || !selectedTime}
+          disabled={isPending || !selectedTime}
           form="confirm-schedule"
           onClick={onNextStep}
           type="submit"
         >
-          {isSubmitting ? (
+          {isPending ? (
             <span className="loading loading-spinner"></span>
           ) : (
             <>

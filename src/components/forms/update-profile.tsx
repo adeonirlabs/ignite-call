@@ -10,7 +10,6 @@ import { useForm } from 'react-hook-form'
 import { updateProfile } from '~/actions/update-profile'
 import type { Profile } from '~/schemas/profile'
 import { profileSchema } from '~/schemas/profile'
-import { sleepTime } from '~/utils/sleep'
 
 export function UpdateProfileForm() {
   const session = useSession()
@@ -27,7 +26,6 @@ export function UpdateProfileForm() {
   const onSubmit = async (data: Profile) => {
     try {
       await updateProfile(data)
-      await sleepTime(500)
       router.push(`/schedule/${session.data?.user.username}`)
     } catch (error) {
       if (error instanceof Error) {

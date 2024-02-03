@@ -9,7 +9,6 @@ import { createTimeIntervals } from '~/actions/create-time-intervals'
 import type { TimeIntervals, TimeIntervalsData } from '~/schemas/time-intervals'
 import { timeIntervalsSchema } from '~/schemas/time-intervals'
 import { getWeekDays } from '~/utils/datetime'
-import { sleepTime } from '~/utils/sleep'
 
 export function TimeIntervalsForm() {
   const router = useRouter()
@@ -50,7 +49,6 @@ export function TimeIntervalsForm() {
 
     try {
       await createTimeIntervals(formData)
-      await sleepTime(500)
       router.push(`/register/profile`)
     } catch (error) {
       if (error instanceof Error) {
