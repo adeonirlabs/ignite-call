@@ -1,6 +1,5 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 import { auth } from '~/auth'
@@ -40,5 +39,4 @@ export async function createTimeIntervals(data: TimeIntervalsData) {
       }),
     ),
   )
-  revalidatePath('/register/agenda')
 }

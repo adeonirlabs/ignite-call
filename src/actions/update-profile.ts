@@ -1,7 +1,5 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
-
 import { auth } from '~/auth'
 import { prisma } from '~/lib/prisma'
 import type { Profile } from '~/schemas/profile'
@@ -11,7 +9,7 @@ export async function updateProfile(data: Profile) {
   const session = await auth()
 
   if (!session || !session.user) {
-    throw new Error('You must be logged in to create time intervals.')
+    throw new Error('You must be logged in to update your profile.')
   }
 
   const parsed = profileSchema.safeParse(data)
@@ -26,5 +24,4 @@ export async function updateProfile(data: Profile) {
       bio: parsed.data.bio,
     },
   })
-  revalidatePath('/register/profile')
 }

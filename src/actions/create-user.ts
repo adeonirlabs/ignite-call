@@ -1,6 +1,5 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 
 import { prisma } from '~/lib/prisma'
@@ -27,5 +26,4 @@ export async function createUser(data: CreateUser) {
     },
   })
   cookies().set('ignite-call.user-id', user.id, { path: '/', maxAge: 60 * 60 * 24 * 30 }) // 30 days
-  revalidatePath('/register')
 }
