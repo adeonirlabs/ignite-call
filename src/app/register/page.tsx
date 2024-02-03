@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'Crie uma conta',
 }
 
-export default function Register() {
+export default function RegisterPage() {
   return (
     <main className="mx-auto mb-4 mt-20 max-w-xl px-4">
       <header className="flex flex-col gap-6 pb-6">

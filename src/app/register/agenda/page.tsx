@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function Agenda() {
+export default function AgendaPage() {
   return (
     <main className="mx-auto mb-4 mt-20 max-w-xl px-4">
       <header className="flex flex-col gap-6 pb-6">

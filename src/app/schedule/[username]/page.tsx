@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 
 import { auth } from '~/auth'
+import { Schedule } from '~/components/modules/schedule'
 
 export async function generateMetadata(): Promise<Metadata | null> {
   const session = await auth()
@@ -13,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata | null> {
   }
 }
 
-export default async function Schedule() {
+export default async function SchedulePage() {
   const session = await auth()
 
   if (!session) return null
